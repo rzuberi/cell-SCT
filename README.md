@@ -29,7 +29,7 @@ This is a three part project, where the end goal is to have a model that can, fr
 
 ## Using GPU in Chichester labs
 - CellPose2 models take 10 minutes to train on CPU.
-- The Chichester lab 2 computers have GPUs: NVIDIA Quadro M5000, with 8GB of dedicated memory.
+- The Chichester lab 2 computers have GPUs: NVIDIA Quadro M5000, with 8GB of dedicated memory (according to TaskManager).
 - Using these GPUs (on Anaconda3, where CellPose2 runs) requires installing a different version of PyTorch (ref:[CellPose2 documentation](https://github.com/MouseLand/cellpose)).
 This results in an error stating that the current logged-in user (me, Rehan) does not have the administrator rights to complete this installation on the lab machine:
 ```
