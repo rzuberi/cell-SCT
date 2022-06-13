@@ -9,17 +9,17 @@ This is a three part project, where the end goal is to have a model that can, fr
 ## Problems and questions for supervisors
 - Using GPU in Chichester labs requires administrator access.
 - If I am able to get the GPU running, I would like to switch from Colab to DataSpell as Dr Hochegger had proposed. I rely on Colab for now since I cannot use the GPUs on the Chichester lab computers.
-- I made a Colab notebook that walks through building a CellPose2 model and calculates its accuracy. It makes a mask for each of the cell microscopy pictures on channel 0 images, effectively showing where the nucleis are. What should be the end goal of segmentation? Are masks enough or should I make new images that take out the cells completely from the image? As in new cropped images of each found nucleis. 
+- I am working on a Colab notebook that walks through building a CellPose2 model and calculates its accuracy. It makes a mask for each of the cell microscopy pictures on channel 0 images, effectively showing where the nucleis are. What should be the end goal of segmentation? Are masks enough or should I make new images that take out the cells completely from the image? As in new cropped images of each found nucleis. 
 
 ## Currently working on
 
-- Exploring how CellPose2 works
-- Setting up the first notebook
 - Colab notebook walkthrough for segmentation
+- Method to calculate accuracy of model (reading CellPose2's loss function)
 
 ## Current results / what's working
 
-- Only have the base data opened up in Fiji and in CellPose2
+- I have figured out CellPose2, using it without the GPU (~10min for training)
+- I am able to put data and CellPose2 models in a notebook (Colab for now)
 
 ## Segmentation
 
