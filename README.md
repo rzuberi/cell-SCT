@@ -51,3 +51,7 @@ Solution
 - Could you use the research money (£200) to buy a DataSpell subscription which is £29.8 for two months ([jetbrains](https://www.jetbrains.com/dataspell/buy/#commercial?billing=monthly).
 
 ## Loss function of CellPose2
+
+## To read
+
+- BCE.loss()
