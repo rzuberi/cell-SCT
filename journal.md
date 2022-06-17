@@ -44,3 +44,8 @@ Thursday 15/06/22
 - Successfully trained a CellPose2 model in Colab with Channel 0 images.
 - Note that both of these last two points are in a messy notebook and will require cleaning-up/refactoring tomorrow. Also need to be uploaded to GitHub soon to get feedback next week. Need to learn to import from another notebook.
 - Ivor's weekly reading group did not happen today.
+
+Friday 16/06/22
+- Meeting and small demonstration from Oliver Thomas (PhD student of Ivor) who showed us (Mihaela, Mae and I) how to use GitHub and creating a virtual environemt in GitHub. Tested GitHub by adding a test file to this project.
+- Working on Colab notebook that demonstrates qualitative testing (with crops) of cell masks. Its added to this GitHub project.
+- 
