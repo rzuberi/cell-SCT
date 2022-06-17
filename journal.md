@@ -49,3 +49,4 @@ Friday 16/06/22
 - Meeting and small demonstration from Oliver Thomas (PhD student of Ivor) who showed us (Mihaela, Mae and I) how to use GitHub and creating a virtual environemt in GitHub. Tested GitHub by adding a test file to this project.
 - Retried creative a virtual environment to install the GPU version of PyTorch to be able to use the GPU when training CellPose2 human-in-the-loop models, which would be much faster (failed to do this last week).
 - Working on Colab notebook that demonstrates qualitative testing (with crops) of cell masks. Its added to this GitHub project.
+- Added the messy Colab notebook (wlakthrough that can implement a model, train one and segment) from which the content of will be separated into smaller notebooks to the GitHub project.
