@@ -58,4 +58,7 @@
 
 ### Monday 20/06/22
 - Got GPU working for CellPose2 in virtual environment, much faster, very happy.
-- Activated education DataSpell license to use it for notebooks instead of Colab, now that I can use the local GPUs.
+- Activated education DataSpell license to use it for notebooks instead of Colab.
+- Trying to make DataSpell, which uses Anaconda, install the PyTorch GPU to actually use the GPU through the DataSpell notebook. Currently not working.
+- Once that is don
+- Weekly meeting with only Helfrid
