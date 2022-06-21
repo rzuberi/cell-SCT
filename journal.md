@@ -62,6 +62,10 @@
 - Trying to make DataSpell, which uses Anaconda, install the PyTorch GPU to actually use the GPU through the DataSpell notebook. Currently not working. It seems to create the notebook in the virtual environement, but when exectuing conda commands from the notebook (not the terminal), it runs in the "base" environement, the one in which I do not have the permissions to install the PyTorch GPU which is needed to run CellPose2 faster.
 - Weekly meeting with only Helfrid as Ivor is away. I caught him up on my progress and talked a little bit about the experience in his lab with Jesus. Shared the GitHub with him (therefore, making it urgent to clean up).
 
+### Tuesday 21/06/22
+- Helfried notified me that I should have access to Omero now. With GlobalProtect activated on his computer, with my credentials, he can connect to Omero. I cannot from the lab machine becasue I do not have GlobalProtect, which would connect me to the internal VPN. An email was sent and Helfrid put the research computing team (that knows about Omero) in contact with Christopher Sothcott who manages the Chichester lab computers.
+- Jupyter refused to work (apparently not in the same file) when launched today from DataSpell. I created a new directory in DataSpell and created a Jupyter notebook in there. It was correctly put in the 'workspace' conda environement, and it was connected with the GPU. Bascially, yesterday's DataSpell issues seemed to have been solved by creating a new folder in a different directory. I'm still debating how to make these notebooks to make sure they're useful. I'm thinking of making one to just train a CellPose model and just tell the user to put the training and testing data in the right folder immediatly, and use the same to segment it.
+
 ##Small TODOs to delete
-- Make GitHub cleanerm
+- Make GitHub cleaner
 - Make a clean DataSpell notebook that can train and evaluate a CellPose2 model, no need for a long walkthrough.
