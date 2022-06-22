@@ -67,6 +67,10 @@
 - Jupyter refused to work (apparently not in the same file) when launched today from DataSpell. I created a new directory in DataSpell and created a Jupyter notebook in there. It was correctly put in the 'workspace' conda environement, and it was connected with the GPU. Bascially, yesterday's DataSpell issues seemed to have been solved by creating a new folder in a different directory. I'm still debating how to make these notebooks to make sure they're useful. I'm thinking of making one to just train a CellPose model and just tell the user to put the training and testing data in the right folder immediatly, and use the same to segment it.
 - While the research computing team and ITS team are sorting out the Omero issue, I am working on the skeleton of the DataSpell notebooks that will directly connect to Omero. Right now, I am trying to make the notebook, from a new conda environment, install the correct PyTorch and CellPose packages and connect to the GPU (and test if its all working). Then I will look into how to connect a Python notebook to Omero to get the data from there.
 
+### Wednesday 22/06/22
+- The back-and-forth emails for GlobalProtect and Omero seem to have concluded with Luke Igerson looking into installing GlobalProtect into the Chichester Lab PCs.
+- I felt a little lost yesterday, not knowing how to get these notebooks going with the correct environment and packages. The solution I am trying right now is to have the GitHub project, when cloned, install these requirements (correct environment and packages) on the machine.
+
 ##Small TODOs to delete
 - Make GitHub cleaner
 - Make a clean DataSpell notebook that can train and evaluate a CellPose2 model, no need for a long walkthrough.
