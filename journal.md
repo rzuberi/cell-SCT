@@ -69,7 +69,8 @@
 
 ### Wednesday 22/06/22
 - The back-and-forth emails for GlobalProtect and Omero seem to have concluded with Luke Igerson looking into installing GlobalProtect into the Chichester Lab PCs.
-- I felt a little lost yesterday, not knowing how to get these notebooks going with the correct environment and packages. The solution I am trying right now is to have the GitHub project, when cloned, install these requirements (correct environment and packages) on the machine.
+- I felt a little lost yesterday, not knowing how to get these notebooks going with the correct environment and packages. The solution is a requirements.txt file in our GitHub project. That file then needs to be with the ```pip install -r requirements.txt``` command.
+- I spent some time trying to understand how to, from the requirements file, install the GPU activated PyTorch (needing the correct CudaToolkit version installed) in our environment. It now works and is connected to the GPU, but the environment in which the notebook is run must be in the ".conda" folder not the "Anaconda3" one.
 
 ##Small TODOs to delete
 - Make GitHub cleaner
