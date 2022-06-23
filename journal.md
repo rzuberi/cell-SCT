@@ -73,6 +73,10 @@
 - I spent some time trying to understand how to, from the requirements file, install the GPU activated PyTorch (needing the correct CudaToolkit version installed) in our environment. It now works and is connected to the GPU, but the environment in which the notebook is run must be in the ".conda" folder not the "Anaconda3" one.
 - I made the "testing_jup.ipynb" file (for which I'll change the name later) that walks through getting in the correct virtual environment, installing the packages from the requirements.txt file, checking that PyTorch is correctly installed, and checking that PyTorch and CellPose both have access to the GPU.
 
+### Thursday 23/06/22
+- Luke Ingerson will install GlobalProtect in two computers in the Richmond 4B9 lab. I am supposed to meet him for this today. It will be in the Richond lab as the Chichester labs have ongoing renovations, so as to not do the work twice. The computers in the Richmon labs have Nvidia Quadron P1000 4GB GPUs. This should be fine for model training, but if it isn't I will ask Luke Ingerson if he can install GlobalProtect in one of the computers in the Chichester labs after they have renovated, since they will have more powerful GPUs.
+- Today, I am working on the CellPose model training notebook. 
+
 ##Small TODOs to delete
 - Make GitHub cleaner
 - Make a clean DataSpell notebook that can train and evaluate a CellPose2 model, no need for a long walkthrough.
