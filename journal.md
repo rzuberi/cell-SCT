@@ -74,10 +74,15 @@
 - I made the "testing_jup.ipynb" file (for which I'll change the name later) that walks through getting in the correct virtual environment, installing the packages from the requirements.txt file, checking that PyTorch is correctly installed, and checking that PyTorch and CellPose both have access to the GPU.
 
 ### Thursday 23/06/22
-- Luke Ingerson will install GlobalProtect in two computers in the Richmond 4B9 lab. GlobalProtect will be installed remotely. It will be in the Richond lab as the Chichester labs have ongoing renovations, so as to not do the work twice. The computers in the Richmond labs have Nvidia Quadron P1000 4GB GPUs. This should be fine for model training, but if it isn't I will ask Luke Ingerson if he can install GlobalProtect in one of the computers in the Chichester labs after they have renovated, since they will have more powerful GPUs.
+- Luke Ingerson will install GlobalProtect in two computers in the Richmond 4B9 lab. GlobalProtect will be installed remotely. It will be in the Richmond lab as the Chichester labs have ongoing renovations, so as to not do the work twice. The computers in the Richmond labs have Nvidia Quadron P1000 4GB GPUs. This should be fine for model training, but if it isn't I will ask Luke Ingerson if he can install GlobalProtect in one of the computers in the Chichester labs after they have renovated, since they will have more powerful GPUs.
 - Today, I am working on the CellPose demo model training. It is the 'model_training' notebook. It serves to show how to put the training and testing data into a CellPose model and train it and do some basic evaluation of performance. The more advanced evaluations of performance will be in another notebook for an easier to read demonstration, is the organisation idea I am going with right now. Right now, the demonstration of model training notebook can import the data, display it, train a (pre-trained) model with it and evaluate its performance with the average_precision method from the CellPose package. Tomorrow I will make it display the predictions (masks) on the testing data.
-- 
+
+### Friday 24/06/22
+- I have not received the confirmation email that GlobalProtect was installed in the lab computer. I am still waiting to be able to use Omero.
+- I uploaded the cell data collected with Jesus to the GitHub with the "Large File" option/module from GitHub.
+- I finished the model_training notebook, making the predictions, displaying them next to the test data and groundtruth and saving them to a file.
+- I started the model_evaluation notebook where I added the methods to make the crops from the predicted masks and will add the qualitative evaluations (binary image operations and crop comparisons) as well as the quantitative operations (number of ROIs, pixel to pixel).
 
 ##Small TODOs to delete
-- Make GitHub cleaner
+- Make GitHub cleaner, add a "How to start this project" part with a how-to on creating a conda environment and the priority of running the "testing_jup" notebook file
 - Make a clean DataSpell notebook that can train and evaluate a CellPose2 model, no need for a long walkthrough.
