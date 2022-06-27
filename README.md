@@ -6,52 +6,19 @@ This is a three part project, where the end goal is to have a model that can, fr
 - classify them by their cell cycle phase,
 - and track them over time.
 
-## Problems and questions for supervisors
-- Using GPU in Chichester labs requires administrator access.
-- If I am able to get the GPU running, I would like to switch from Colab to DataSpell as Dr Hochegger had proposed. I rely on Colab for now since I cannot use the GPUs on the Chichester lab computers.
-- I am working on a Colab notebook that walks through building a CellPose2 model and calculates its accuracy. It makes a mask for each of the cell microscopy pictures on channel 0 images, effectively showing where the nucleis are. What should be the end goal of segmentation? Are masks enough or should I make new images that take out the cells completely from the image? As in new cropped images of each found nucleis. 
+To track the daily progress of this project: journal.md
+
+## Initial setup
+- Start with the environment_setup Python Notebook. It will install the correct packages into your environment and make sure the GPU is connected.
+- Right now, the segmentation part of the project is underworks but can be used to train a cell segmentation model.
+
+## Currently working
+- Environment setup is working and done with. It will be updated later on to be setup with Omero.
+- The cell segmentation model training notebook is done. It can be used by anyone to understand, with little code to understand, how to train a CellPose2 model.
 
 ## Currently working on
+- The evaluation Python Notebook to quantitavily and qualitatively evaluate how well a trained CellPose2 model works.
+- Reading through the CellPose2 loss function (BCE.loss()) to understand how they calculate average precision.
 
-- Colab notebook walkthrough for segmentation
-- Method to calculate accuracy of model (reading CellPose2's loss function)
-
-## Current results / what's working
-
-- I have figured out CellPose2, using it without the GPU (~10min for training)
-- I am able to put data and CellPose2 models in a notebook (Colab for now)
-
-## Segmentation
-
-- Creating a segmentation model from CellPose2. The idea here would be to use the cell micrographs in a human-in-the-loop training model. Once it is trained, I will put it in a notebook and upload it to this GitHub project.
-- CellPose2 creators made a great notebook to implement a custom trained model: https://colab.research.google.com/github/MouseLand/cellpose/blob/main/notebooks/run_cellpose_2.ipynb#scrollTo=Z2ac5gtr-HPq
-
-
-## Using GPU in Chichester labs
-- CellPose2 models take 10 minutes to train on CPU.
-- The Chichester lab 2 computers have GPUs: NVIDIA Quadro M5000, with 8GB of dedicated memory (according to TaskManager).
-- Using these GPUs (on Anaconda3, where CellPose2 runs) requires installing a different version of PyTorch (ref:[CellPose2 documentation](https://github.com/MouseLand/cellpose)).
-This results in an error stating that the current logged-in user (me, Rehan) does not have the administrator rights to complete this installation on the lab machine:
-```
-EnvironmentNotWritableError: The current user does not have write permissions to the target environment.
-  environment location: C:\ProgramData\Anaconda3
-```
-
-Tried (and failed) solutions:
-- Using CellPose2 through Google Colab to use their free GPUs. Unfortunately, CellPose2's labelling GUI can only work through a terminal, therefore requires being run on Anaconda3 and cannot be run on a notebook (such as Colab).
-- Asking Sussex IT services for administrator access. Unfortunately, after describing my problem and the error I was encountering, they informed me that giving administrator access or even helping me install that package was not a possibility.
-
-## Using DataSpell
-- Dr Hochegger proposed using DataSpell for making notebooks.
-- This would depend on the status of the GPU access I have in the Chichester labs.
-- DataSpell is not on the SoftwareHub (apps provided in Sussex labs).
-- Using DataSpell also 
-
-Solution
-- Could you use the research money (£200) to buy a DataSpell subscription which is £29.8 for two months ([jetbrains](https://www.jetbrains.com/dataspell/buy/#commercial?billing=monthly).
-
-## Loss function of CellPose2
-
-## To read
-
-- BCE.loss()
+## Currently waiting for
+- Waiting for Omero to be installed in the Richmond lab computers so I can train models with that data to make them more general.
