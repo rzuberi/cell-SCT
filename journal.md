@@ -83,6 +83,14 @@
 - I finished the model_training notebook, making the predictions, displaying them next to the test data and groundtruth and saving them to a file.
 - I started the model_evaluation notebook where I added the methods to make the crops from the predicted masks and will add the qualitative evaluations (binary image operations and crop comparisons) as well as the quantitative operations (number of ROIs, pixel to pixel).
 
-##Small TODOs to delete
-- Make GitHub cleaner, add a "How to start this project" part with a how-to on creating a conda environment and the priority of running the "testing_jup" notebook file
-- Make a clean DataSpell notebook that can train and evaluate a CellPose2 model, no need for a long walkthrough.
+
+## Week 4
+
+### Monday 27/06/22
+- I am still waiting on the confirmation email for the installation of GlobalProtect.
+- I have reorganised the GitHub project to put the big colab notebooks in an "archive" folder and put the clean ones in the "segmentation" folder. I also removed other small tests and unnecessary files. I also updated the readme to reflect the current state of this project.
+
+## Small TODOs to delete
+- Add a gitignore file (probably add the zipped big data file)
+- Read through CellPose2's loss function
+- Continue the model evaluation notebook
