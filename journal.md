@@ -1,4 +1,4 @@
-# JRA Project Diary
+# JRA Project Journal (Diary)
 
 ## Week 1
 
