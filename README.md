@@ -6,7 +6,7 @@ This is a three part project, where the end goal is to have a model that can, fr
 - classify them by their cell cycle phase,
 - and track them over time.
 
-To track the daily progress of this project: journal.md
+To track the daily progress of this project: [journal](journal.md)
 
 ## Initial setup
 - Start with the environment_setup Python Notebook. It will install the correct packages into your environment and make sure the GPU is connected.
