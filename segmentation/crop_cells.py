@@ -9,14 +9,7 @@ import numpy as np
 # Output: number of cells
 # The number of cells is defined by the number of different pixel intensities, excluding the background
 def count_cells(img):
-    numbers_found = []
-    for i in range(len(img)):
-        # if in one line of pixels there are only zeros, then there are no cells in that line
-        current_line = img[i]
-        if not np.all((current_line == 0)):
-            for j in range(len(current_line)):
-                if current_line[j] != 0: numbers_found.append(current_line[j])
-    return len(set(numbers_found))
+    return len(np.unique(img.reshape(-1), return_counts=False)) - 1
 
 
 # Function to get the 4 coordinates of cell
@@ -100,12 +93,14 @@ def get_longest_line(corners):
 # Function that takes a mask and returns a crop of every cell inside it
 # Input: image of cells (mask)
 # Output: list of images that are crops of the cells in the inputted image
+import time
+
 
 def get_cell_crop_coordinates(original_cells_img):
     copy_cells_img = np.copy(original_cells_img)
 
     # get the number of nuclei
-    num_cells = count_cells(copy_cells_img)
+    num_cells = count_cells2(copy_cells_img)
 
     crops = []
     crop_coordinates = []
@@ -139,9 +134,6 @@ def get_cell_crop_coordinates(original_cells_img):
 # Function to get crops on image from list of coordinates
 # Input: original image, list of coordinates to crop around(4)
 # Output: crops of these coordinates
-def get_img_crops(img):
-    crops = [img[coord[0]:coord[1], coord[2]:coord[3]] for coord in get_cell_crop_coordinates(img)]
+def get_img_crops(img, crop_coordinates):
+    crops = [img[coord[0]:coord[1], coord[2]:coord[3]] for coord in crop_coordinates]
     return crops
-
-#%%
-get_img_crops([[0],[0],[0]])
