@@ -51,7 +51,7 @@
 - Meeting and small demonstration from Oliver Thomas (PhD student of Ivor) who showed us (Mihaela, Mae and I) how to use GitHub and creating a virtual environemt in GitHub. Tested GitHub by adding a test file to this project.
 - Retried creative a virtual environment to install the GPU version of PyTorch to be able to use the GPU when training CellPose2 human-in-the-loop models, which would be much faster (failed to do this last week). I've been able to install the right version of PyTorch on a virtual environment (that's a win) but unable to make CellPose2 us it (for now). CellPose2 says "[INFO] TORCH CUDA version not installed/working.".
 - Working on Colab notebook that demonstrates qualitative testing (with crops) of cell masks. Its added to this GitHub project.
-- Added the messy Colab notebook (wlakthrough that can implement a model, train one and segment) from which the content of will be separated into smaller notebooks to the GitHub project.
+- Added the messy Colab notebook (walkthrough that can implement a model, train one and segment) from which the content of will be separated into smaller notebooks to the GitHub project.
 
 
 ## Week 3
@@ -98,7 +98,12 @@
 - Omero is now installed in the Richmond lab 4B9 computers (2 of them). I have been able to connect to it with my credentials. I haven't explored it much but there are no images in it as far as I can tell. Tomorrow I will make a notebook to setup Omero to the environment and use it in Python. Maybe in the "environment_setup" notebook as an optional setup.
 - I worked on the model evaluation notebook, matching up the cropped ground truth cells to the cropped predicted cells using the cropped functions (that I moved into a separate .py file that is imported into the notebook then to make it cleaner) and the 'mask ious' function from CellPose that finds the best matches in masks. I changed the get_crops_img function to only take the image and find the coordinates to get the crops from there but that was a mistake (that I will fix tomorrow) since I need to get the coordinates from the mask and make the crops on the real microscopy image of the cells.
 
+### Wednesday 29/06/22
+- Today I spent all of my time working on the qualitative comparison methods. These methods can pair up the crops of cells on the original image taken from the ground truth masks and the predicted masks and display them next to each other. These methods should be eventually moved from the seg_model_evaluation notebook to the crop_cells.py python file (for which I'll change the name to be more general at some point I think). These functions can also sort how similar the pair of crops is (if the pair really does match up) or by how dissimilar they are. It can also filter to only show the pairs that were found (sometimes the prediction doesn't find all the cells) or only the ones that were not found. I also worked on getting the "count cells" function to be faster, and it is much faster thanks to a numpy built-in function. Python loops really are slow.
+- I wish, for tomorrow morning, to clean up the qualitative methods (put them in crop_cells.py and show examples of usage in the notebook), make a plan for the quantitative methods and try to connect Omero to the project. I don't think connecting Omero to the notebook is useful right now since I cannot see any data in it, but at least reading about it will help me gain more information (and go more quickly) during the meeting with Helfrid (tomorrow at 2:30) where he is going to show me how Omero works, I do not want to show up with no knowledge at all.
+
 ## Small TODOs to delete
-- Add a gitignore file (probably add the zipped big data file)
-- Read through CellPose2's loss function
-- Continue the model evaluation notebook
+- Clean up qualitative comparison methods
+- Add the quantitative methods (from CellPose2's built-in functions)
+- Meeting at 2:30 with Helfrid
+- Is there the weekly Thursday "paper presentation/reading club" meeting with Ivor's PhD group?
