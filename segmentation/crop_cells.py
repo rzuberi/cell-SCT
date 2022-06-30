@@ -3,11 +3,14 @@ import math
 from itertools import combinations
 import numpy as np
 
-
 # Function to get the number of cells in an image
 # Input: image
 # Output: number of cells
 # The number of cells is defined by the number of different pixel intensities, excluding the background
+from cellpose import metrics, models, io
+from matplotlib import pyplot as plt
+
+
 def count_cells(img):
     return len(np.unique(img.reshape(-1), return_counts=False)) - 1
 
@@ -100,7 +103,7 @@ def get_cell_crop_coordinates(original_cells_img):
     copy_cells_img = np.copy(original_cells_img)
 
     # get the number of nuclei
-    num_cells = count_cells2(copy_cells_img)
+    num_cells = count_cells(copy_cells_img)
 
     crops = []
     crop_coordinates = []
@@ -137,3 +140,209 @@ def get_cell_crop_coordinates(original_cells_img):
 def get_img_crops(img, crop_coordinates):
     crops = [img[coord[0]:coord[1], coord[2]:coord[3]] for coord in crop_coordinates]
     return crops
+
+
+# Function that takes an image, its ground truth mask and its predicted mask and output the comparison between the
+# cropped cells it made It should also output the number of cells found by each (later on this should be a measure
+# metric)
+def match_cell_crops(original_img, gt_mask, pred_mask):
+    # Get the crops for the gt mask and the pred mask
+    gt_crops = get_img_crops(original_img, get_cell_crop_coordinates(gt_mask))  # lets try and speed up this function
+
+    pred_crops = get_img_crops(original_img, get_cell_crop_coordinates(pred_mask))
+    # Sort them to see which correspond to which
+
+    ious = metrics.mask_ious(gt_mask, pred_mask)
+
+    # Match them up into pairs
+    pairs = [(gt_crops[i], pred_crops[ious[1][i] - 1]) if ious[1][i] - 1 != -1 else (gt_crops[i], [0]) for i in
+             range(len(ious[1]))]
+
+    return pairs
+
+
+def display_pairs(pairs, ious=None, order="normal", filter=None):
+    # we'll add a sorting method later that sorts by most similar to most dissimilar pairs open up pairs_test to just
+    # be a sequential list, no tuples for comparison, print the coordinates of the center of the crop relative to the
+    # original img to show how far away these two crops are, we might use that distance as a threshold for matching
+    # them up lets add this function to the py file lets make a function that calculates the distance between two crops
+
+    # add some sorting to the pairs
+    # first kind should be "normal"
+    # second kind should be "most different"
+    # third kind should be "most similar"
+    # fourth kind should be "only matched"
+    # fifth kind should be "only non-matched"
+    # pairs = np.array(pairs)
+
+    if ious is not None and filter is not None:
+        if filter == 'only_matched':
+            pairs_kept = []
+            for i in range(len(pairs)):
+                if ious[0][i] != 0: pairs_kept.append(pairs[i])
+            pairs = pairs_kept
+        if filter == 'only_non_matched':
+            pairs_kept = []
+            for i in range(len(pairs)):
+                if ious[0][i] == 0: pairs_kept.append(pairs[i])
+            pairs = pairs_kept
+
+    if ious is not None and order != "normal":
+        pairs = [pair for _, pair in sorted(zip(ious[0], pairs), key=lambda first: first[
+            0])]  # sorted from lowest similarity to highest similarity
+        if order == 'most_similar': pairs.reverse()
+
+    pairs_seq = []
+    for pair in pairs:
+        pairs_seq.append(pair[0])
+        pairs_seq.append(pair[1])
+
+    # print(pairs_seq[7]==pairs[3][1])
+    # This plotting, for 84 images, takes 3 seconds (the rest of this function takes 0s)
+    plt.figure(figsize=(2, len(pairs_seq)))
+    for i in range(0, len(pairs_seq), 2):
+        plt.subplot(int(len(pairs_seq) / 2), 2, i + 1)
+        plt.imshow(pairs_seq[i])
+        plt.axis('off')
+        plt.subplot(int(len(pairs_seq) / 2), 2, i + 2)
+        # print(pairs_seq[i+1])
+        if np.array(pairs_seq[i + 1]).all() != 0:
+            plt.imshow(pairs_seq[i + 1])
+        plt.axis('off')
+    plt.show()
+
+
+# Function to use an imported model to make predictions and returns them
+def make_predictions(model_dir, test_dir, gpu=True, channels=None):
+    if channels is None: channels = [0, 0]
+    model = models.CellposeModel(gpu=gpu, pretrained_model=model_dir)
+
+    test_data, test_labels = io.load_train_test_data(test_dir, mask_filter='_seg.npy')[:2]  # loads the test data
+    predicted_test_masks = model.eval(test_data, channels=channels, diameter=model.diam_labels.copy())[
+        0]  # generates the predictions
+
+    return predicted_test_masks
+
+
+# Function to display the predictions that I made independent
+def display_imgs(imgs):
+    plt.figure(figsize=(20, 20))
+    for i in range(len(imgs)):
+        plt.subplot(1, len(imgs) + 1, i + 1)
+        plt.axis('off')
+        plt.imshow(imgs[i])
+    plt.show()
+
+
+# Function to use an imported model to make predictions on images in a test directory and display them
+def make_and_display_predictions(model_dir, test_dir, gpu=True, channels=None):
+    if channels is None: channels = [0, 0]
+    model = models.CellposeModel(gpu=gpu, pretrained_model=model_dir)
+
+    test_data, test_labels = io.load_train_test_data(test_dir, mask_filter='_seg.npy')[:2]  # loads the test data
+    predicted_test_masks = model.eval(test_data, channels=channels, diameter=model.diam_labels.copy())[
+        0]  # generates the predictions
+
+    # Displaying the predictions
+    plt.figure(figsize=(20, 20))
+    for i in range(len(predicted_test_masks)):
+        plt.subplot(1, len(predicted_test_masks) + 1, i + 1)
+        plt.axis('off')
+        plt.imshow(predicted_test_masks[i])
+    plt.show()
+
+
+# Function to get the average precision from ground truth to predicted masks
+# This is just a simplification from the CellPose metrics function, it uses it
+def get_average_precision(gt_masks, pred_masks, threshold=None):
+    if threshold is None:
+        threshold = [0.1]
+    return metrics.average_precision(gt_masks, pred_masks, threshold=threshold)[0][:, 0].mean()
+
+
+# Function that takes the ground truth and predicted masks to display the average precision of the model at different
+# thresholds
+def display_average_precision(gt_masks, pred_masks):
+    # list of thresholds we want
+    thresholds = [i / 10 for i in range(1, 11, 1)]
+
+    # loop getting those thresholds storing them in a list
+    average_precisions = metrics.average_precision(gt_masks, pred_masks, threshold=thresholds)[0]
+    results = [average_precisions[:, i].mean() for i in range(len(thresholds))]
+
+    # put the results in a bar plot and display it
+    plt.title('Average precision of model at different thresholds')
+    plt.bar(np.array(thresholds), np.array(results), width=0.05)
+    plt.xticks(np.array(thresholds))
+    plt.xlabel('Threshold')
+    plt.ylabel('Average precision')
+    plt.ylim([0, 1])
+    plt.show()
+
+
+# Function to get the average number of true positives, false positives, and false negatives at different thresholds
+def display_average_confusion(gt_masks, pred_masks):
+    # list of thresholds we want
+    thresholds = np.array([i / 10 for i in range(1, 11, 1)])
+
+    # loop getting those thresholds storing them in a list
+    average_tp = metrics.average_precision(gt_masks, pred_masks, threshold=thresholds)[1]
+    average_fp = metrics.average_precision(gt_masks, pred_masks, threshold=thresholds)[2]
+    average_fn = metrics.average_precision(gt_masks, pred_masks, threshold=thresholds)[3]
+
+    # get the averages
+    results_tp = [average_tp[:, i].mean() for i in range(len(thresholds))]
+    results_fp = [average_fp[:, i].mean() for i in range(len(thresholds))]
+    results_fn = [average_fn[:, i].mean() for i in range(len(thresholds))]
+
+    # put the results in a bar plot and display it
+    plt.title('Average true positives, false positives,\nfalse negatives at different thresholds')
+    plt.plot(thresholds, np.array(results_tp), 'o', label='True positives')
+    plt.plot(thresholds, np.array(results_fp), 'o', label='False positives')
+    plt.plot(thresholds, np.array(results_fn), 'o', label='False negatives')
+    plt.xticks(np.array(thresholds))
+    plt.xlabel('Threshold')
+    plt.ylabel('Average metric')
+    plt.grid(axis='x')
+    plt.ylim([0, max([max(results_tp), max(results_fp), max(results_fn)]) + 5])
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    # plt.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",mode="expand", borderaxespad=0, ncol=3)
+    plt.show()
+
+
+# Function that displays in bar plot the average precision of multiple models at different thresholds
+# Input: a list of models made of tuples with the labels and predictions
+def display_average_precision_comparison(model_results):
+    thresholds = np.array([i / 10 for i in range(1, 11, 1)])
+
+    # loop getting those thresholds storing them in a list
+    averages_per_model = []
+    for model in model_results:
+        averages_per_model.append(metrics.average_precision(model[0], model[1], threshold=thresholds)[0])
+
+    # get the averages
+    results_per_model = []
+    for model_average in averages_per_model:
+        results_per_model.append([model_average[:, i].mean() for i in range(len(thresholds))])
+
+    # get the spacings for the bars
+    space = [-0.04, 0.04]
+    total_width = space[1] - space[0]
+    width = (space[1] - space[0]) / len(model_results)
+    right = width
+    bar_centers = []
+    for i in range(len(model_results)):
+        bar_centers.append(width / 2 + (right - width))
+        right += width
+    bar_centers = np.array(bar_centers[::-1]) + space[0]
+
+    # put the results in a bar plot and display it
+    plt.title('Average precision at different thresholds to compare models')
+    for i in range(len(results_per_model)): plt.bar(thresholds - bar_centers[i], np.array(results_per_model[i]),
+                                                    width=width, label=str('Model ' + str((i + 1))))
+    plt.xticks(np.array(thresholds))
+    plt.xlabel('Threshold')
+    plt.ylabel('Average precision')
+    plt.ylim([0, 1])
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    plt.show()
