@@ -102,8 +102,13 @@
 - Today I spent all of my time working on the qualitative comparison methods. These methods can pair up the crops of cells on the original image taken from the ground truth masks and the predicted masks and display them next to each other. These methods should be eventually moved from the seg_model_evaluation notebook to the crop_cells.py python file (for which I'll change the name to be more general at some point I think). These functions can also sort how similar the pair of crops is (if the pair really does match up) or by how dissimilar they are. It can also filter to only show the pairs that were found (sometimes the prediction doesn't find all the cells) or only the ones that were not found. I also worked on getting the "count cells" function to be faster, and it is much faster thanks to a numpy built-in function. Python loops really are slow.
 - I wish, for tomorrow morning, to clean up the qualitative methods (put them in crop_cells.py and show examples of usage in the notebook), make a plan for the quantitative methods and try to connect Omero to the project. I don't think connecting Omero to the notebook is useful right now since I cannot see any data in it, but at least reading about it will help me gain more information (and go more quickly) during the meeting with Helfrid (tomorrow at 2:30) where he is going to show me how Omero works, I do not want to show up with no knowledge at all.
 
+### Thursday 30/06/22
+- Cleaned up the qualitative comparison methods, that's done now in the seg_model_evaluation notebook.
+- Added some qualitative methods in the seg_model_evaluation notebook adn cleaned them up in functions, where some display the data in nice plots, in the crop_cells python file. Right now the average precision can be displayed with another function that displays to compare models, and there's an average confusion method to get the average true positives etc. I'll add more of these tomorrow.
+- The meeting with Helfrid for Omero was moved to Friday (tomorrow) at 2:30.
+
+
 ## Small TODOs to delete
-- Clean up qualitative comparison methods
-- Add the quantitative methods (from CellPose2's built-in functions)
-- Meeting at 2:30 with Helfrid
-- Is there the weekly Thursday "paper presentation/reading club" meeting with Ivor's PhD group?
+- Add the quantitative methods (from CellPose2's built-in functions) (in progress)
+- Read about connecting Omero to a notebook
+- Meeting at 2:30 with Helfrid (was moved to Friday)
