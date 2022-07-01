@@ -112,3 +112,4 @@
 - Add the quantitative methods (from CellPose2's built-in functions) (in progress)
 - Read about connecting Omero to a notebook
 - Meeting at 2:30 with Helfrid (was moved to Friday)
+- Update GitHub readme with what works now (such as the qualitative )
