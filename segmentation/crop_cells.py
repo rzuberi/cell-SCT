@@ -8,7 +8,7 @@ import numpy as np
 # Output: number of cells
 # The number of cells is defined by the number of different pixel intensities, excluding the background
 from cellpose import metrics, models, io
-from cellpose.metrics import boundary_scores
+from cellpose.metrics import boundary_scores, aggregated_jaccard_index
 from matplotlib import pyplot as plt
 
 
@@ -317,12 +317,12 @@ def display_average_confusion(gt_masks, pred_masks):
 
 # Function that displays in bar plot the average precision of multiple models at different thresholds
 # Input: a list of models made of tuples with the labels and predictions
-def display_average_precision_comparison(model_results):
+def display_average_precision_comparison(model_data):
     thresholds = np.array([i / 10 for i in range(1, 11, 1)])
 
     # loop getting those thresholds storing them in a list
     averages_per_model = []
-    for model in model_results:
+    for model in model_data:
         averages_per_model.append(metrics.average_precision(model[0], model[1], threshold=thresholds)[0])
 
     # get the averages
@@ -333,10 +333,10 @@ def display_average_precision_comparison(model_results):
     # get the spacings for the bars
     space = [-0.04, 0.04]
     total_width = space[1] - space[0]
-    width = (space[1] - space[0]) / len(model_results)
+    width = (space[1] - space[0]) / len(model_data)
     right = width
     bar_centers = []
-    for i in range(len(model_results)):
+    for i in range(len(model_data)):
         bar_centers.append(width / 2 + (right - width))
         right += width
     bar_centers = np.array(bar_centers[::-1]) + space[0]
@@ -389,7 +389,7 @@ def display_average_boundary_scores(gt_masks, pred_masks, scales=None):
     plt.show()
 
 
-def display_average_boundary_score_comparison(model_results, boundary_score=None, scales=None):
+def display_average_boundary_score_comparison(model_data, boundary_score=None, scales=None):
     if boundary_score is None:
         boundary_score = 'precision'
 
@@ -404,28 +404,48 @@ def display_average_boundary_score_comparison(model_results, boundary_score=None
         scales = [0.1, 0.5, 0.9]
 
     results_per_model = []
-    for gt_masks, pred_masks in model_results:
+    for gt_masks, pred_masks in model_data:
         scores = np.array(get_average_boundary_scores(gt_masks, pred_masks, scales))
         results_per_model = scores[:, ind]
 
     # get the spacings for the bars
     space = [-0.04, 0.04]
     total_width = space[1] - space[0]
-    width = (space[1] - space[0]) / len(model_results)
+    width = (space[1] - space[0]) / len(model_data)
     right = width
     bar_centers = []
-    for i in range(len(model_results)):
+    for i in range(len(model_data)):
         bar_centers.append(width / 2 + (right - width))
         right += width
     bar_centers = np.array(bar_centers[::-1]) + space[0]
 
     # put the results in a bar plot and display it
     plt.title('Average ' + boundary_score + ' at different scales to compare models')
-    for i in range(len(results_per_model)): plt.bar(scales - bar_centers[i], np.array(results_per_model[i]),
-                                                    width=width, label=str('Model ' + str((i + 1))))
+    for i in range(len(results_per_model)):
+        plt.bar(scales - bar_centers[i], np.array(results_per_model[i]),
+                width=width, label=str('Model ' + str((i + 1))))
     plt.xticks(np.array(scales))
     plt.xlabel('Scale')
     plt.ylabel(boundary_score)
     plt.ylim([0, 1])
     plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    plt.show()
+
+
+# Function to get the average aggregated jaccard index between the ground truth masks and the predicted ones
+def get_average_aji(gt_masks, pred_masks):
+    return aggregated_jaccard_index(gt_masks, pred_masks).mean()
+
+
+# Function to display in a bar plot the average aggregated jaccard index of different models
+def display_average_aji_comparison(model_data):
+    results_per_model = []
+    for gt_masks, pred_masks in model_data:
+        results_per_model.append(aggregated_jaccard_index(gt_masks, pred_masks).mean())
+
+    plt.bar([i for i in range(len(model_data))], results_per_model, color=['royalblue', 'bisque', 'olive'])
+    plt.ylim([0, 1])
+    plt.xticks([i for i in range(len(model_data))], ['Model ' + str(i + 1) for i in range(len(model_data))])
+    plt.title('Average Aggregated Jaccard Index')
+    plt.ylabel('Aggregated Jaccard Index')
     plt.show()
