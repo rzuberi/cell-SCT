@@ -8,7 +8,7 @@ import numpy as np
 # Output: number of cells
 # The number of cells is defined by the number of different pixel intensities, excluding the background
 from cellpose import metrics, models, io
-from cellpose.metrics import boundary_scores
+from cellpose.metrics import boundary_scores, aggregated_jaccard_index
 from matplotlib import pyplot as plt
 
 
@@ -421,11 +421,31 @@ def display_average_boundary_score_comparison(model_results, boundary_score=None
 
     # put the results in a bar plot and display it
     plt.title('Average ' + boundary_score + ' at different scales to compare models')
-    for i in range(len(results_per_model)): plt.bar(scales - bar_centers[i], np.array(results_per_model[i]),
-                                                    width=width, label=str('Model ' + str((i + 1))))
+    for i in range(len(results_per_model)):
+        plt.bar(scales - bar_centers[i], np.array(results_per_model[i]),
+                width=width, label=str('Model ' + str((i + 1))))
     plt.xticks(np.array(scales))
     plt.xlabel('Scale')
     plt.ylabel(boundary_score)
     plt.ylim([0, 1])
     plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    plt.show()
+
+
+# Function to get the average aggregated jaccard index between the ground truth masks and the predicted ones
+def get_average_aji(gt_masks, pred_masks):
+    return aggregated_jaccard_index(gt_masks, pred_masks).mean()
+
+
+# Function to display in a bar plot the average aggregated jaccard index of different models
+def display_average_aji_comparison(model_data):
+    results_per_model = []
+    for gt_masks, pred_masks in model_data:
+        results_per_model.append(aggregated_jaccard_index(gt_masks, pred_masks).mean())
+
+    plt.bar([i for i in range(len(model_data))], results_per_model, color=['royalblue', 'bisque', 'olive'])
+    plt.ylim([0, 1])
+    plt.xticks([i for i in range(len(model_data))], ['Model ' + str(i + 1) for i in range(len(model_data))])
+    plt.title('Average Aggregated Jaccard Index')
+    plt.ylabel('Aggregated Jaccard Index')
     plt.show()
