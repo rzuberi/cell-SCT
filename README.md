@@ -11,7 +11,7 @@ To track the daily progress of this project: [journal](journal.md)
 ## Initial setup
 - Start with the environment_setup Python Notebook. It will install the correct packages into your environment and make sure the GPU is connected.
 - There is also an [omero setup](omero_setup.ipynb) notebook to establish a connection if needed.
-- Right now, the [segmentation part](segmentation) of the project is underworks but can be used to train a cell segmentation model and evaluate it qualitatively and quantitatively with comparison options.
+- Right now, the [segmentation part](segmentation) of the project is under work but can be used to train a cell segmentation model and evaluate it qualitatively and quantitatively with comparison options.
 
 ## What works
 - The environment and omero connection setup notebooks are done.
