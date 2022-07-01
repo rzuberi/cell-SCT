@@ -8,6 +8,7 @@ import numpy as np
 # Output: number of cells
 # The number of cells is defined by the number of different pixel intensities, excluding the background
 from cellpose import metrics, models, io
+from cellpose.metrics import boundary_scores
 from matplotlib import pyplot as plt
 
 
@@ -161,7 +162,7 @@ def match_cell_crops(original_img, gt_mask, pred_mask):
     return pairs
 
 
-def display_pairs(pairs, ious=None, order="normal", filter=None):
+def display_pairs(pairs, ious=None, order="normal", filter=None, num=None):
     # we'll add a sorting method later that sorts by most similar to most dissimilar pairs open up pairs_test to just
     # be a sequential list, no tuples for comparison, print the coordinates of the center of the crop relative to the
     # original img to show how far away these two crops are, we might use that distance as a threshold for matching
@@ -199,12 +200,16 @@ def display_pairs(pairs, ious=None, order="normal", filter=None):
 
     # print(pairs_seq[7]==pairs[3][1])
     # This plotting, for 84 images, takes 3 seconds (the rest of this function takes 0s)
-    plt.figure(figsize=(2, len(pairs_seq)))
-    for i in range(0, len(pairs_seq), 2):
-        plt.subplot(int(len(pairs_seq) / 2), 2, i + 1)
+    if num is None:
+        num = len(pairs_seq)
+    else:
+        num *= 2
+    plt.figure(figsize=(2, num))
+    for i in range(0, num, 2):
+        plt.subplot(int(num / 2), 2, i + 1)
         plt.imshow(pairs_seq[i])
         plt.axis('off')
-        plt.subplot(int(len(pairs_seq) / 2), 2, i + 2)
+        plt.subplot(int(num / 2), 2, i + 2)
         # print(pairs_seq[i+1])
         if np.array(pairs_seq[i + 1]).all() != 0:
             plt.imshow(pairs_seq[i + 1])
@@ -343,6 +348,84 @@ def display_average_precision_comparison(model_results):
     plt.xticks(np.array(thresholds))
     plt.xlabel('Threshold')
     plt.ylabel('Average precision')
+    plt.ylim([0, 1])
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    plt.show()
+
+
+# Function to get the mean boundary score between the ground truth and predictions at different scales
+# Returns the precision, recall and fscore
+def get_average_boundary_scores(gt_masks, pred_masks, scales=None):
+    if scales is None:
+        scales = [0.1, 0.5]
+    results = []  # the results will be stored per scale
+    for i in range(len(scales)):
+        scores = boundary_scores(gt_masks, pred_masks, [scales[i]])
+        result_scale = [scores[0][0].mean(), scores[1][0].mean(), scores[2][0].mean()]
+        results.append(result_scale)
+    return results
+
+
+# Function to display the average boundary score in a scatter plot at different scales
+def display_average_boundary_scores(gt_masks, pred_masks, scales=None):
+    if scales is None:
+        scales = [0.1, 0.3, 0.5, 0.7, 0.9]
+    scores = np.array(get_average_boundary_scores(gt_masks, pred_masks, scales))
+    precision = scores[:, 0]
+    recall = scores[:, 1]
+    f1 = scores[:, 2]
+
+    plt.title('Boundary scores at different scales')
+    plt.plot(scales, np.array(precision), 'o', label='Precision')
+    plt.plot(scales, np.array(recall), 'o', label='Recall')
+    plt.plot(scales, np.array(f1), 'o', label='F-score')
+    plt.xticks(np.array(scales))
+    plt.xlabel('Scale')
+    plt.ylabel('Average metric')
+    plt.grid(axis='x')
+    plt.ylim([0, 1.0])
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+    # plt.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",mode="expand", borderaxespad=0, ncol=3)
+    plt.show()
+
+
+def display_average_boundary_score_comparison(model_results, boundary_score=None, scales=None):
+    if boundary_score is None:
+        boundary_score = 'precision'
+
+    if boundary_score == 'precision':
+        ind = 0
+    elif boundary_score == 'recall':
+        ind = 1
+    elif boundary_score == 'f-score':
+        ind = 2
+
+    if scales is None:
+        scales = [0.1, 0.5, 0.9]
+
+    results_per_model = []
+    for gt_masks, pred_masks in model_results:
+        scores = np.array(get_average_boundary_scores(gt_masks, pred_masks, scales))
+        results_per_model = scores[:, ind]
+
+    # get the spacings for the bars
+    space = [-0.04, 0.04]
+    total_width = space[1] - space[0]
+    width = (space[1] - space[0]) / len(model_results)
+    right = width
+    bar_centers = []
+    for i in range(len(model_results)):
+        bar_centers.append(width / 2 + (right - width))
+        right += width
+    bar_centers = np.array(bar_centers[::-1]) + space[0]
+
+    # put the results in a bar plot and display it
+    plt.title('Average ' + boundary_score + ' at different scales to compare models')
+    for i in range(len(results_per_model)): plt.bar(scales - bar_centers[i], np.array(results_per_model[i]),
+                                                    width=width, label=str('Model ' + str((i + 1))))
+    plt.xticks(np.array(scales))
+    plt.xlabel('Scale')
+    plt.ylabel(boundary_score)
     plt.ylim([0, 1])
     plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
     plt.show()
