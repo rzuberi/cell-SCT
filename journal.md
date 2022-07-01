@@ -112,4 +112,6 @@
 - Add the quantitative methods (from CellPose2's built-in functions) (in progress)
 - Read about connecting Omero to a notebook
 - Meeting at 2:30 with Helfrid (was moved to Friday)
-- Update GitHub readme with what works now (such as the qualitative )
+- Update GitHub readme with what works now (such as the qualitative methods)
+- Delete some of the useless branches on the GitHub project
+- Only show 5 of the cropped celles comparisons between the ground truth and prediction otherwise they take up too much space in length (done)
