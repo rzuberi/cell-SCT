@@ -107,9 +107,16 @@
 - Added some qualitative methods in the seg_model_evaluation notebook adn cleaned them up in functions, where some display the data in nice plots, in the crop_cells python file. Right now the average precision can be displayed with another function that displays to compare models, and there's an average confusion method to get the average true positives etc. I'll add more of these tomorrow.
 - The meeting with Helfrid for Omero was moved to Friday (tomorrow) at 2:30.
 
+### Friday 01/07/22
+- Finished adding the quantitative methods to the model evaluation notebook and crop cells py file (for which I should change the name). The py file holds the functions' code, the notebook presents them cleanly.
+- Meeting with Helfrid did not happen, moved to Monday (no time defined yet).
+- Read about connecting Omero to python and made a quick setup notebook called omero_setup.
 
 ## Small TODOs to delete
-- Add the quantitative methods (from CellPose2's built-in functions) (in progress)
+- Add the quantitative methods (from CellPose2's built-in functions) (done)
 - Read about connecting Omero to a notebook
 - Meeting at 2:30 with Helfrid (was moved to Friday)
 - Update GitHub readme with what works now (such as the qualitative )
+- Should rename the crop_cells.py file to evaluation_functions.py
+- How many layers and what size for a CNN, something to research to prepare for classification part of the project
+- Could add in the qualitative segmentation a way to compare how models cropped cells differently, using CellPose's cell matching function we could match them all up and then present them each on a row.
