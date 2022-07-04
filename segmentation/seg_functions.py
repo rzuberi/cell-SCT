@@ -1,6 +1,8 @@
 # All the code for getting the crop coordinates
 import math
 from itertools import combinations
+
+import cv2
 import numpy as np
 
 # Function to get the number of cells in an image
@@ -449,3 +451,78 @@ def display_average_aji_comparison(model_data):
     plt.title('Average Aggregated Jaccard Index')
     plt.ylabel('Aggregated Jaccard Index')
     plt.show()
+
+
+# Function that returns an image rotated to -90, 90 and 180 degree rotations
+def rotate_img(img):
+    rotated = [cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE), cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE),
+               cv2.rotate(img, cv2.ROTATE_180)]
+    return rotated
+
+
+# Function to augment the training data images and labels with -90, 90 and 180 degree rotations
+def augmentation_rotate(train_data, train_labels):
+    train_data_augmented = np.copy(train_data)
+    train_labels_augmented = np.copy(train_labels)
+
+    for i in range(len(train_data)):
+        # Data (cell images) augmenting
+        rotated_ori_data = rotate_img(train_data[i])
+        for img in rotated_ori_data:
+            train_data_augmented = np.append(train_data_augmented, img)
+
+        horizontal_flip_data = cv2.flip(train_data[i], 0)
+        train_data_augmented = np.append(train_data_augmented, horizontal_flip_data)
+        rotated_horizontal_flip_data = rotate_img(horizontal_flip_data)
+        for img in rotated_horizontal_flip_data:
+            train_data_augmented = np.append(train_data_augmented, img)
+
+        # Labels augmenting
+        rotated_ori_label = rotate_img(train_labels[i])
+        for img in rotated_ori_label:
+            train_labels_augmented = np.append(train_labels_augmented, img)
+
+        horizontal_flip_labels = cv2.flip(train_labels[i], 0)
+        train_labels_augmented = np.append(train_labels_augmented, horizontal_flip_labels)
+        rotated_horizontal_flip_labels = rotate_img(horizontal_flip_labels)
+        for img in rotated_horizontal_flip_labels:
+            train_labels_augmented = np.append(train_labels_augmented, img)
+
+    train_data_augmented = train_data_augmented.reshape((int(
+        train_data_augmented.shape[0] / (train_data[0].shape[0] * train_data[0].shape[1])), train_data[0].shape[0],
+                                                         train_data[0].shape[1]))
+    train_labels_augmented = train_labels_augmented.reshape((int(
+        train_labels_augmented.shape[0] / (train_labels[0].shape[0] * train_labels[0].shape[1])),
+                                                             train_labels[0].shape[0], train_labels[0].shape[1]))
+    return train_data_augmented, train_labels_augmented
+
+
+# Function to change the brightness of an image
+def change_brightness(img, value):
+    # First normalise the image
+    img_norm = ((img - np.min(img)) / (np.max(img) - np.min(img))) * 255
+
+    if value > 0:  # make img brighter
+        img_bright = np.where((255 - img_norm) < value, 255, img_norm + value)
+    else:  # make img less bright
+        img_bright = np.where((0 - img_norm) < value, 0, img_norm + value)
+    return img_bright
+
+
+# Function to augment the training data images with different brightness
+# The ground truth labels do not change
+def augmentation_brightness(train_data):
+    values = [-100, -50, 50, 100]  # the values by which the brightness will change
+    train_data_augmented = np.copy(train_data)
+    britghtened_imgs = []
+    for i in range(len(train_data_augmented)):
+        for value in values:
+            britghtened_imgs.append(change_brightness(train_data_augmented[i], value))
+
+    for img in britghtened_imgs:
+        train_data_augmented = np.append(train_data_augmented, img)
+
+    train_data_augmented = train_data_augmented.reshape((int(
+        train_data_augmented.shape[0] / (train_data[0].shape[0] * train_data[0].shape[1])), train_data[0].shape[0],
+                                                         train_data[0].shape[1]))
+    return train_data_augmented
