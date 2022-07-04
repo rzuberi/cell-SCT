@@ -13,11 +13,11 @@
 
 ### Wednesday 08/06/22
 - Explored how to get the GPUs to work on the Chichester Lab computers.
-- Made some groundtruth data to train a model on.
+- Made some ground truth data to train a model on.
 
 ### Thursday 09/06/22
 - Tried a little more to make GPUs work.
-- Started a Google Colab notebook to walktrhough training a CellPose2 model with channel 1s to segment channel 0.
+- Started a Google Colab notebook to walk-through training a CellPose2 model with channel 1s to segment channel 0.
 
 ### Friday 10/06/22
 - Working on Colab notebook, importing the data and labelling it.
@@ -32,8 +32,8 @@
 
 ### Tuesday 14/06/22
 - Working on Colab notebook to import a model and use it to make predictions.
-- Working on Colab notebook to compare predictions and grountruth, binarised the images first (not great direction, Ivor gave better things to look at such as making a bouding box around the groundtruth and putting it on the predicted mask to see if it gets the cell, pixel by pixel is the main expression he used).
-- End of day quick catch-up with Ivor for him to give me advice on how to get the accuracy of the model (comparing groundtruth and predicted masks).
+- Working on Colab notebook to compare predictions and ground truth, binarised the images first (not great direction, Ivor gave better things to look at such as making a bounding box around the ground truth and putting it on the predicted mask to see if it gets the cell, pixel by pixel is the main expression he used).
+- End of day quick catch-up with Ivor for him to give me advice on how to get the accuracy of the model (comparing ground truth and predicted masks).
 
 ### Wednesday 14/06/22
 - Went through the protocol (with Jesus Galan, one of Helfrid's PhD students) at the Genome Centre to apply the EdU cell cycle marker to cells, left the mixture overnight and continue the next morning.
@@ -51,7 +51,7 @@
 - Meeting and small demonstration from Oliver Thomas (PhD student of Ivor) who showed us (Mihaela, Mae and I) how to use GitHub and creating a virtual environemt in GitHub. Tested GitHub by adding a test file to this project.
 - Retried creative a virtual environment to install the GPU version of PyTorch to be able to use the GPU when training CellPose2 human-in-the-loop models, which would be much faster (failed to do this last week). I've been able to install the right version of PyTorch on a virtual environment (that's a win) but unable to make CellPose2 us it (for now). CellPose2 says "[INFO] TORCH CUDA version not installed/working.".
 - Working on Colab notebook that demonstrates qualitative testing (with crops) of cell masks. Its added to this GitHub project.
-- Added the messy Colab notebook (walkthrough that can implement a model, train one and segment) from which the content of will be separated into smaller notebooks to the GitHub project.
+- Added the messy Colab notebook (walk-through that can implement a model, train one and segment) from which the content of will be separated into smaller notebooks to the GitHub project.
 
 
 ## Week 3
@@ -112,11 +112,21 @@
 - Meeting with Helfrid did not happen, moved to Monday (no time defined yet).
 - Read about connecting Omero to python and made a quick setup notebook called omero_setup.
 
-## Small TODOs to delete
-- Add the quantitative methods (from CellPose2's built-in functions) (done)
-- Read about connecting Omero to a notebook
-- Meeting at 2:30 with Helfrid (was moved to Friday)
-- Update GitHub readme with what works now (such as the qualitative )
-- Should rename the crop_cells.py file to evaluation_functions.py
+
+## Week 5
+
+### Monday 04/07/22
+- Changed the "crop_cells.py" file's name to "seg_functions.py" as it is more fitting to its purpose.
+- I started a data augmentation notebook. It takes images and their ground truth and makes more data from it. Today I added the rotation and brightness changes augmentations, with the functions being in the seg_functions python file. There will also be a section in there to measure the effects of the augmentations on the evaluation metrics of the model by training two models, one with the augmented data and one without, and evaluating them.
+- Deleted some unused branches from the GitHub project (can be restored later, right now they're useless).
+
+## TODOs
+- Add some images (cell images, crops and masks) and flowcharts to the GitHub readme
+- Clean up the model_training notebook
+- Meeting at 2:30 with Helfrid for ground truth data and Omero data access tutorial (date unsure)
+- Update GitHub readme with what works now (such as the qualitative methods)
+- Add a "sources' section to the GitHub readme with CellPose2
+- Should rename the crop_cells.py file to seg_functions.py (done)
 - How many layers and what size for a CNN, something to research to prepare for classification part of the project
 - Could add in the qualitative segmentation a way to compare how models cropped cells differently, using CellPose's cell matching function we could match them all up and then present them each on a row.
+- I'll most probably have to make data loaders
