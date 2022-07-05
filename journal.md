@@ -120,13 +120,19 @@
 - I started a data augmentation notebook. It takes images and their ground truth and makes more data from it. Today I added the rotation and brightness changes augmentations, with the functions being in the seg_functions python file. There will also be a section in there to measure the effects of the augmentations on the evaluation metrics of the model by training two models, one with the augmented data and one without, and evaluating them.
 - Deleted some unused branches from the GitHub project (can be restored later, right now they're useless).
 
+### Tuesday 05/07/22
+- Weekly catch-up with Helfrid and Ivor, main point is the switch to the classification part of the project. They gave me good pointers about how to make the training data for the classification CNN and Helfrid showed us how to get the data in Omero. Helfrid will also send me the notebook that can iteratively get data from Omero into a numpy array. I will put, as Ivor recommended, all the points of that meeting into a new section in GitHub with objectives and suggestions.
+- Created the classification directory and added the agenda that holds TODOs, current project state, suggestions and issues.
+- I worked on the Omero setup notebook trying to import cell images from Omero with the functions that Helfrid gave me. The functions work well, but they are slow (0.22 seconds per image, for 160 images). I tried using NumPy arrays to make it faster but the problem is the built-in Omero function. I looked online and there may be some solutions that use different formats and/or compress the images, I haven't been able to find proper documentation to do that in Python. I might leave this task for later as it took me a lot of my time today and I was unable to speed it up at all. The omero_setup notebook is a mess (of NumPy testing) that I will have to clean up. 
+
 ## TODOs
+- Clean up omero_setup notebook
 - Add some images (cell images, crops and masks) and flowcharts to the GitHub readme
 - Clean up the model_training notebook
 - Meeting at 2:30 with Helfrid for ground truth data and Omero data access tutorial (date unsure)
 - Update GitHub readme with what works now (such as the qualitative methods)
 - Add a "sources' section to the GitHub readme with CellPose2
-- Should rename the crop_cells.py file to seg_functions.py (done)
 - How many layers and what size for a CNN, something to research to prepare for classification part of the project
 - Could add in the qualitative segmentation a way to compare how models cropped cells differently, using CellPose's cell matching function we could match them all up and then present them each on a row.
 - I'll most probably have to make data loaders
+- The data augmentation notebook (for the segmentation) is not finished, but can be put on the side for now until I finish setting up the data for the CNN. It will be needed to get a good segmentation model, mostly everything is setup to get a good segmentation model, I just haven't trained a good one yet (because I need to make more segmentation ground truth data).

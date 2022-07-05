@@ -2,8 +2,8 @@
 Create a machine learning model that can Segment, Classify and Track (SCT) cells.
 
 This is a three part project, where the end goal is to have a model that can, from a series of micrographs,
-- segment out the cells,
-- classify them by their cell cycle phase,
+- segment out the cells; 'seg'
+- classify them by their cell cycle phase; 'ccc'
 - and track them over time.
 
 To track the daily progress of this project: [journal](journal.md)
