@@ -131,6 +131,7 @@
 - I worked in the Omero_setup notebook to start the classification part to make ground truth data of classified cells. I made functions that take an image from Omero, makes a prediction of the cells in there, crops around them in the DAPI and Cy5 (Edu) channels, finds the average intensity of pixels in both channels in each crops to have 2 values per cells and then k-means clusters in 3 groups to find the G1, S and G2/M phases. There's also some display functions for ease of viewing. When this pipeline is improved with a segmentation model trained on more data and probably some corrections on the k-means clustering to find the right classes (probably because of how the values are calculated with just pixel intensity, there may be a different way to calculate the DAPI and Cy5 values, I need to ask Ivor) this will serve to make ground truth data for the cell cycle labelling CNN. That CNN should classify with only one marker which I forgot the name of right now.
 
 ## TODOs
+- Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
 - Clean up omero_setup
 - Add some images (cell images, crops and masks) and flowcharts to the GitHub readme
