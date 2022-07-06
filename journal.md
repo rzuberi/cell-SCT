@@ -125,8 +125,14 @@
 - Created the classification directory and added the agenda that holds TODOs, current project state, suggestions and issues.
 - I worked on the Omero setup notebook trying to import cell images from Omero with the functions that Helfrid gave me. The functions work well, but they are slow (0.22 seconds per image, for 160 images). I tried using NumPy arrays to make it faster but the problem is the built-in Omero function. I looked online and there may be some solutions that use different formats and/or compress the images, I haven't been able to find proper documentation to do that in Python. I might leave this task for later as it took me a lot of my time today and I was unable to speed it up at all. The omero_setup notebook is a mess (of NumPy testing) that I will have to clean up. 
 
+### Wednesday 06/07/22
+- Made some very good progress today, quite proud.
+- I continued reading about Omero and how to speed up the imports and ended up finding the 'ezomero' python package which makes importing simpler, but not faster. Still, I started using that for any Omero functionalities in the Omero_setup notebook.
+- I worked in the Omero_setup notebook to start the classification part to make ground truth data of classified cells. I made functions that take an image from Omero, makes a prediction of the cells in there, crops around them in the DAPI and Cy5 (Edu) channels, finds the average intensity of pixels in both channels in each crops to have 2 values per cells and then k-means clusters in 3 groups to find the G1, S and G2/M phases. There's also some display functions for ease of viewing. When this pipeline is improved with a segmentation model trained on more data and probably some corrections on the k-means clustering to find the right classes (probably because of how the values are calculated with just pixel intensity, there may be a different way to calculate the DAPI and Cy5 values, I need to ask Ivor) this will serve to make ground truth data for the cell cycle labelling CNN. That CNN should classify with only one marker which I forgot the name of right now.
+
 ## TODOs
-- Clean up omero_setup notebook
+- Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
+- Clean up omero_setup
 - Add some images (cell images, crops and masks) and flowcharts to the GitHub readme
 - Clean up the model_training notebook
 - Meeting at 2:30 with Helfrid for ground truth data and Omero data access tutorial (date unsure)
