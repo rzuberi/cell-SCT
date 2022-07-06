@@ -21,3 +21,5 @@ It should describe the current state of the project, have the TODOs, the issuses
 - The robustness has to be leveled into the level of the PCNA since that's what we want our CNN to classify from in the end.
 - Edges of microscopy pictures might be blurry. Helfrid recommends applying a gaussian blur on the entire image and then dividing or subtracting it.
 - The output from the CNN could be a confidence score (60/40, 70/30 etc.) instead of giving one class (1 or 0).
+- After having classified the cells, on the original cell image (with all the cells), add textually each cell's label next to it
+- The k-means clustering graph (with the dots of colors) would look great on the front of this project when showing what each section deos
