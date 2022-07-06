@@ -99,9 +99,6 @@ def get_longest_line(corners):
 # Function that takes a mask and returns a crop of every cell inside it
 # Input: image of cells (mask)
 # Output: list of images that are crops of the cells in the inputted image
-import time
-
-
 def get_cell_crop_coordinates(original_cells_img):
     copy_cells_img = np.copy(original_cells_img)
 
@@ -221,7 +218,8 @@ def display_pairs(pairs, ious=None, order="normal", filter=None, num=None):
 
 # Function to use an imported model to make predictions and returns them
 def make_predictions(model_dir, test_dir, gpu=True, channels=None):
-    if channels is None: channels = [0, 0]
+    if channels is None:
+        channels = [0, 0]
     model = models.CellposeModel(gpu=gpu, pretrained_model=model_dir)
 
     test_data, test_labels = io.load_train_test_data(test_dir, mask_filter='_seg.npy')[:2]  # loads the test data
