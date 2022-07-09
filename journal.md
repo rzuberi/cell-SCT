@@ -135,6 +135,11 @@
 - Helfrid told me that Jesus will finish labelling data today, so it should be available tomorrow (Friday) morning. Hopefully he labelled the cell cycle phase of cells, which would provide the base data for my classifier to make groundtruth data for the CNN that will only use one type of labelling. Otherwise it might be just new images of cells. Anyway, I told Helfrid, over Slack, about what I did yesterday and how far I got into making ground truth data, that is having a working pipeline for it right now.
 - I read the paper "CNN for Clasifying Chromatin Morphology in Live-Cell Imaging" that was sent by Helfrid on slack a few weeks ago. I learned that some of the methods I used to train the segmentation models (uploading images in google colab directories) are also used by this paper, which is reassuring. This paper uses CNNs for this kind of classification, which is reasurring for my own thinking of using CNN for cell cycle labelling. They also found an accuracy of minimum 95% which is promising for my project. Otherwise there were some techniques/methods that I could apply to my own project later on, such as UMAP for feature filtering.
 
+### Friday 08/07/22
+- Found conflicts in the environment setup notebook with MacOS, the ZSH terminal doesn't have the same terminal commands as Windows. Need to fix this.
+- I could not launch Omero from my Mac computer because I could not log into GlobalProtect. I think this is due to me not having Sussex staff VPN credentials.
+- Helfrid told me that Jesus added more cell data (I'm guessing microscopy pictures) that are 10X to Omero, and that he will make/add 20X data Monday.
+
 
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
