@@ -141,6 +141,14 @@
 - Helfrid told me that Jesus added more cell data (I'm guessing microscopy pictures) that are 10X to Omero, and that he will make/add 20X data Monday.
 
 
+## Week 6
+
+### Monday 11/07/22
+- Meeting with Helfrid where he gave some recommendations for the classification and said more data of cell images (at 20x) would arrive. Mainly, he said to make the segmentations on the PCNA (Alexa555) channel as that is what will be used in the end (these segementations are the ones for the mask prediction for the classification and the ones to show the results of the classification). He also gave me some code to normalise the pixel intensities of the cells and some rules to apply (certain value thresholds) that determine the cell cycle phase of cells.
+- I was having problems with GlobalProtect (I could not log in because I did not have a VPN password from MyView since I do not have employee credentials). Therefore, I used data (cell image channels) I had already downloaded and put in the classification directory.
+- I made a new notebook called ccc_data_exploration where I started and will be putting the code to show how to get the different channels and classify with k-means clustering. I will eventually clean up the omero_setup notebook to not have any of the classification code as it should be kept for the ccc_data_exploration notebook now.
+- I learned how to generate and use GitHub personal access tokens to push my work from my Mac.
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
