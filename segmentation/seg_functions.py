@@ -4,16 +4,15 @@ from itertools import combinations
 
 import cv2
 import numpy as np
-
-# Function to get the number of cells in an image
-# Input: image
-# Output: number of cells
-# The number of cells is defined by the number of different pixel intensities, excluding the background
 from cellpose import metrics, models, io
 from cellpose.metrics import boundary_scores, aggregated_jaccard_index
 from matplotlib import pyplot as plt
 
 
+# Function to get the number of cells in an image
+# Input: image
+# Output: number of cells
+# The number of cells is defined by the number of different pixel intensities, excluding the background
 def count_cells(img):
     return len(np.unique(img.reshape(-1), return_counts=False)) - 1
 
@@ -99,7 +98,10 @@ def get_longest_line(corners):
 # Function that takes a mask and returns a crop of every cell inside it
 # Input: image of cells (mask)
 # Output: list of images that are crops of the cells in the inputted image
-def get_cell_crop_coordinates(original_cells_img):
+def get_cell_crop_coordinates(original_cells_img, margin=None):
+    if margin is None:
+        margin = 10
+
     copy_cells_img = np.copy(original_cells_img)
 
     # get the number of nuclei
@@ -118,7 +120,6 @@ def get_cell_crop_coordinates(original_cells_img):
 
         center_col, center_row = get_center(corners)  # get the center of the nuclei
 
-        margin = 10
         crop_len = int(
             get_longest_line(corners) / 2) + margin  # get the longest diag and divide by 2 for square crop half length
 
@@ -524,3 +525,5 @@ def augmentation_brightness(train_data):
         train_data_augmented.shape[0] / (train_data[0].shape[0] * train_data[0].shape[1])), train_data[0].shape[0],
                                                          train_data[0].shape[1]))
     return train_data_augmented
+
+#%%
