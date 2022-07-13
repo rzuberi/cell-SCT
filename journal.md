@@ -155,6 +155,11 @@
 - When applying the rule the color of the background to differentiate the cells that are in the S phase and not is harder. I plotted the cell pixel intensities on the EdU channel with varying bucket numbers and tried getting the elbow which should be the separation between the background and the appearing cells in that channel. The function to get the background is okay for now when not averaging with many buckets (around ~400 pixel intensity). Averaging over many buckets gives lower values (around ~300 pixel intensity).
 - Next up I should clean up what I have to apply that S phase rule and make specific functions to apply each rule to classify in the cell phases. Later on I also need to figure out how to apply k-means to this, maybe on a 4 axis graph since we have 4 channels?
 
+### Wednesday 13/07/22
+- Meeting with Ivor where I told him about the rules I was applying, he said the background finding method I was using was sensible. Ivor gave me some recommendations for normalisation and one hot encoding. Ivor wants to talk next week about where the project will go, third year project, potential publication and sharing the pipelines and code I made with other cell biology students.
+- I made a new markdown document called meeting_notes where I will be putting in there the dates and times where I had meetings with the notes I took in them.
+- I continued exploring the EdU classification and did some cleaning up in the ccc_data_exploration notebook. I also made a full plan for the pipeline to use the data in Omero to apply the rules on each. Hopefully I'll be able to finish the pipeline well enough tomorrow to show Helfrid in the afternoon.
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
