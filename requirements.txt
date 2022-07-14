@@ -12,6 +12,7 @@ scipy==1.8.1
 tifffile==2022.5.4
 matplotlib==3.5.2
 omero-py==5.11.2
+pandas==1.4.3
 
 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 torch==1.11.0+cu113
