@@ -10,3 +10,13 @@ Attendees: Dr Ivor Simpson, Rehan Zuberi
 - I told Ivor that for now I'm applying the rules that Helfrid told me until Friday.
 - Ivor wants to setup some time next week to take a step back on the project and make bullet points to know where we go from here. Firstly, how will this project go into being my final year project. Secondly, how can this project and its result be used for publication (useful for him, useful for me). And thirdly, how I can share these resources with other students, especially the ones in Helfrid's lab who are less computer sciency. If they could have an easy to work pipeline in which to put their data and get quantitative results from it, it would be very useful from it.
 
+### Thursday 14th of July, 17:05-17:20
+Attendees: Dr Helfrid Hochegger, Rehan Zuberi
+- Meeting to show him the progress I've made on the microscopy pictures to make training data for a model
+- For the crop displays, he recommends grayscale and enhancing contrast.
+- To get all of the cells, he recommends doing a comparison with a predicted mask from the DAPI images. This reminds me to make a model and groundtruth data that works well on segmenting on the kind of data we have now with CellPose2.
+- Maybe a size filter for too big or too small objects in the segmentation would be useful.
+- Skimage should provide some good tools to help with border images.
+- I need to inspect better the EdU and Cyclin A2 values to get the threshold.
+- Helfrid wants to see a model soon, hopefully we can get a working CNN by Monday so we can show him a good working pipeline that just has to be improved.
+- He asked how the crops were made and this reminds me to make a flowchart/diagram that shows with the diagonal calculations and all how they are made.

@@ -160,6 +160,12 @@
 - I made a new markdown document called meeting_notes where I will be putting in there the dates and times where I had meetings with the notes I took in them.
 - I continued exploring the EdU classification and did some cleaning up in the ccc_data_exploration notebook. I also made a full plan for the pipeline to use the data in Omero to apply the rules on each. Hopefully I'll be able to finish the pipeline well enough tomorrow to show Helfrid in the afternoon.
 
+### Thursday 14/07/22
+- I was able to apply all the classification rules on the cell data. The pipeline to do so is not clean and could be faster. It should also be done on more data.
+- Had a meeting with Helfrid where I showed him the data I have with the rules he gave me to apply. He recommended to better explore the Cyclin A2 and EdU markers in how to separate them from the active ones in those channels to the background/negative ones. He also said the clear-cut between cells where none of them (in the data I had, which should be more on more images) were applying to 2 rules, each only 1 rule so only 1 phase classified, is normal.
+- I started making a CNN just to get some model running but had some troubles with the image shapes.
+- The main priority right now is to make sure that the Cyclin A2 threshold and EdU threshold are better, add more data to get more training data, to get a working CNN pipeline (even if the accuracy is not good yet), to clean up the pipeline and to start making the presentation for Wednesday.
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
