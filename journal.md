@@ -166,6 +166,12 @@
 - I started making a CNN just to get some model running but had some troubles with the image shapes.
 - The main priority right now is to make sure that the Cyclin A2 threshold and EdU threshold are better, add more data to get more training data, to get a working CNN pipeline (even if the accuracy is not good yet), to clean up the pipeline and to start making the presentation for Wednesday.
 
+### Friday 15/07/22
+- I looked at the EdU and Cyclin A2 thresholds and plotted them. I found that they were finding correct threshold values to separate the data as Helfrid was showing me in his plots. I sent these plots to Helfrid and Ivor on Slack, so they could tell me (especially Helfrid) if they are correct.
+- I cleaned up the pipeline by putting the functions in their own py file (ccc_function.py). I made a function to build the dataframe will all the data for multiple images to make a large dataframe. I added the first 50 images only as doing all the steps to get the data for all this took almost 10 minutes. At some point I will go and refactor it. I saved that data as a CSV file. I also got some stats on it for the cell cycle phase proportions and the G2/M grew to ~11% so that looks good, I also sent that to Helfrid and Ivor. I want to put that data into the Venn diagram and if there is no overlap into a pie chart to also show the ~4% of cells that are not labelled at all. I also need to display some of these cells, although I feel like that is less important.
+- I really need to update the GitHub README to reflect the state of the project as well as the classification agenda with what I have now. I also really need to make flowcharts. I feel like all of this will come Tuesday when I make the presentation for Wednesday afternoon.
+- I restarted making a CNN from a tutorial that Mae sent me and I am starting by making proper directories of training and testing data as the tutorial shows, it is not done yet. I'm hoping to have a model Monday to show Helfrid and Ivor some classification-model data. This will be continued Monday.
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
@@ -178,4 +184,4 @@
 - How many layers and what size for a CNN, something to research to prepare for classification part of the project
 - Could add in the qualitative segmentation a way to compare how models cropped cells differently, using CellPose's cell matching function we could match them all up and then present them each on a row.
 - I'll most probably have to make data loaders
-- The data augmentation notebook (for the segmentation) is not finished, but can be put on the side for now until I finish setting up the data for the CNN. It will be needed to get a good segmentation model, mostly everything is setup to get a good segmentation model, I just haven't trained a good one yet (because I need to make more segmentation ground truth data).
+- The data augmentation notebook (for the segmentation) is not finished, but can be put on the side for now until I finish setting up the data for the CNN. It will be needed to get a good segmentation model, mostly everything is set up to get a good segmentation model, I just haven't trained a good one yet (because I need to make more segmentation ground truth data).
