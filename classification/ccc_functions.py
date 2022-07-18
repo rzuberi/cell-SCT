@@ -1,17 +1,30 @@
 # This file holds the functions to make the necessary classifcation of cells
 # Right now, this only has the functions to make the training data
 
+import numpy as np
+import numpy.matlib
 # Need a function to import all images from a well
 import pandas as pd
 from cellpose import models
 from matplotlib import pyplot as plt
 from statistics import mean
 
-import numpy as np
-import numpy.matlib
-
 from segmentation.seg_functions import get_cell_crop_coordinates, get_img_crops
 
+
+import sys
+#source:https://stackoverflow.com/questions/3160699/python-progress-bar
+def progressbar(it, prefix="", size=60, out=sys.stdout): # Python3.3+
+    count = len(it)
+    def show(j):
+        x = int(size*j/count)
+        print("{}[{}{}] {}/{}".format(prefix, "#"*x, "."*(size-x), j, count),
+              end='\r', file=out, flush=True)
+    show(0)
+    for i, item in enumerate(it):
+        yield item
+        show(i+1)
+    print("\n", flush=True, file=out)
 
 def normalise_img(img):
     return (img - np.min(img)) / (np.max(img) - np.min(img))
@@ -67,8 +80,8 @@ def dna_norm(df, column_name=None):
     Author/Shared by: Dr Helfrid Hochegger
     """
     if column_name == None: column_name = 'dapi_values'
-    y, x, _ = plt.hist(df[column_name], bins=250)
-    plt.show()
+    y, x = np.histogram(df[column_name], 250)
+    plt.close()
     max = x[np.where(y == y.max())]
     df['DNA_content'] = df[column_name] / max[0]
     return df
@@ -200,8 +213,7 @@ def build_one_cell_df(image, model_dir):
 
 def build_mega_cell_df(images, model_dir):
     pd_list = []
-    for i in range(len(images)):
-        print(i)
+    for i in progressbar(range(len(images))):
         pd_list.append(build_one_cell_df(images[i], model_dir))
 
     df_concat = pd.concat(pd_list)
@@ -224,6 +236,7 @@ def count_phases(df):
     print('G1 phase: ' + str(percentage_in_g1) + '%')
     print('G2/M phase: ' + str(percentage_in_g2_m) + '%')
 
-#%%
+
+
 
 #%%

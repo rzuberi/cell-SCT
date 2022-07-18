@@ -20,3 +20,15 @@ Attendees: Dr Helfrid Hochegger, Rehan Zuberi
 - I need to inspect better the EdU and Cyclin A2 values to get the threshold.
 - Helfrid wants to see a model soon, hopefully we can get a working CNN by Monday so we can show him a good working pipeline that just has to be improved.
 - He asked how the crops were made and this reminds me to make a flowchart/diagram that shows with the diagonal calculations and all how they are made.
+
+### Monday 18th of July, 10:00-10:20
+- Have a set of convolutions fo reach channel, the cyclin, and merge them for a classifier or use them idnividually
+- Not a classifier for each channel but an encoder. Use 2-3 convolutions and merge them
+- More preprocesssing than just normalising is not needed since the CNN will be used
+- The images should be interchangeable so the normalisation per dataset might be enough. Make sure its noted that this might need to be digged into more later on.
+- Random 90 degree rotations are easy to do with PyTorch according to Ivor.
+- PyTorch lightning is the equivalent to Keras. PyTorch for academic research is faster than TensorFlow. TensorFlow in deployment is more used because its good at it but PyTorch is now working for deployment and its faster and flexible and can work on the M1 chips.
+- Cuda is the link (software librayr) to link the GPU hardware. Hopefully people will use Docker and more. Installing Docker for Helfrid's lab is worth it (not important for my project, its too much work, but for someone who has more time its worth it). There a Docker open-source equivalent called Singularity
+- Helfrid is gone from week 8 wednesday. I talked about giving in the poster in beginning of september so Helfrid wants to be kept in the loop of how the poster goes in august.
+- We can move this to the 3rd year project. Time and space tracking of cells as Helfrid suggests. Ivor will talk with Ian Mackie this afternoon. Helfrid will talk with Jesus to get some data with Jesus for tracking. Helfrid will get in touch when he has the data.
+- Will have the talk in August or September with the list of extenstion tasks and propose them to Helfrid and Ivor how technical and application of which should be done according to me t build into a publication and for a 3r dyear  project.

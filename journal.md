@@ -172,6 +172,17 @@
 - I really need to update the GitHub README to reflect the state of the project as well as the classification agenda with what I have now. I also really need to make flowcharts. I feel like all of this will come Tuesday when I make the presentation for Wednesday afternoon.
 - I restarted making a CNN from a tutorial that Mae sent me and I am starting by making proper directories of training and testing data as the tutorial shows, it is not done yet. I'm hoping to have a model Monday to show Helfrid and Ivor some classification-model data. This will be continued Monday.
 
+
+## Week 7
+
+### Monday 18/07/22
+- Weekly meeting with Ivor and Helfrid. Talked about the current state of the project, how I was able to get the training data and am moving on to classifying with a CNN. Helfrid is excited for how many cells I will have in total and how well the CNN will perform. Helfrid wants me to keep him updated on the performance this week. I need to meet with Ivor before next Monday for him to check how my CNN is (code and performance wise). I will need to talk with them during September about the extension tasks of this project I want to take on for my 3rd year project. I will also need to keep Helfrid updated on the poster in August.
+- I worked on getting the CNN to work, it does, but with an accuracy of ~53%. This is fine because there is only 3% of our data used to train it and especially the layers chose are very simple and almost random. With lots of tweaking needed, this model will marginally improve.
+- I cleaned up the ccc_data_exploration notebook. It holds too many different parts of the project and rough code that isn't put in py files. It needs more cleaning up once the pipeline is solid and I've sorted which functions I'm keeping. It will need problaly 2 to 3 different py files as I do not want the CNN functions and training data creation functions to be together.
+- I also launched the dataframe creating of the entire plate 822, that's 1500 images, it should take 4 hours and will be done tonight but I will see if it worked tomorrow morning. It will save it as a CSV. Then, tomorrow, I will do the same on the computer to my right for it to create it for another plate that Helfrid had given us. That way we will have the two CSVs and can even create a mega one or train two different models on them with the same architecture to observe the differences.
+- Tomorrow I will do the CNN in the morning and the presentation in the afternoon. This might also give me an excuse to clean up the GitHub.
+
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
