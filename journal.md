@@ -182,6 +182,10 @@
 - I also launched the dataframe creating of the entire plate 822, that's 1500 images, it should take 4 hours and will be done tonight but I will see if it worked tomorrow morning. It will save it as a CSV. Then, tomorrow, I will do the same on the computer to my right for it to create it for another plate that Helfrid had given us. That way we will have the two CSVs and can even create a mega one or train two different models on them with the same architecture to observe the differences.
 - Tomorrow I will do the CNN in the morning and the presentation in the afternoon. This might also give me an excuse to clean up the GitHub.
 
+### Tuesday 19/07/22
+- I did not work on the CNN but I created the data into dataframes from all images in plates 821 and 822 and put them in OneDrive because GitHub is annoying with big files. I made a data_creation notebook that creates this dataframe from the plate but it takes a lot of time (4 hours for 1500 images).
+- I worked on the presentation but need to do a lot more tomorrow morning. I want to have supporting images to show, for example, how CellPose2 works to create a segmentation model, how I get the crops with the diagonals, how the classification rules work etc. It is on Google Slides.
+- DataSpell crashed a few times in a row because of a lack of memory in the PC, I had to restart it but no data/code was lost. It was probably due to being on all night and that I made it generate so many images in one go. Works fine now.
 
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
