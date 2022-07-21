@@ -187,6 +187,13 @@
 - I worked on the presentation but need to do a lot more tomorrow morning. I want to have supporting images to show, for example, how CellPose2 works to create a segmentation model, how I get the crops with the diagonals, how the classification rules work etc. It is on Google Slides.
 - DataSpell crashed a few times in a row because of a lack of memory in the PC, I had to restart it but no data/code was lost. It was probably due to being on all night and that I made it generate so many images in one go. Works fine now.
 
+### Wednesday 20/07/22
+- I worked on the presentation the entire day, and then I presented.
+- For my presentation, I got some good feedback such as: do not go down the road of testing out different architectures just choose ones, soften the training data classification rules, make the final classification a mask to add on top of the original cell micrograph with the segmentation mask.
+
+### Thursday 21/07/22
+- Following the advice I was given yesterday, I worked on trying to implement the Google LeNet CNN architecture. I'm trying to transform my data to be padded so that all images are of the same size but it is not working yet. 
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
