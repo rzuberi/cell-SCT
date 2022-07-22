@@ -196,7 +196,7 @@
 
 ### Friday 22/07/22
 - I implemented the LeNet CNN architecture into a notebook and put all the functions in a separate py file. Accuracy of 67% over one plate of cells. The pipeline works.
-- I have many ideas on how to develop this pipeline further to explore how well the other channels perform for classification and also some changes to make the classification predictions become a mask that will go on top the segmentation mask. These ideas come from Wednesday's project status presentation. They might be part of my 3rd year project, I really need to get a nice segmentation to classification pipeline done by next week.
+- I have many ideas on how to develop this pipeline further to explore how well the other channels perform for classification and also some changes to make the classification predictions become a mask that will go on top the segmentation mask. These ideas come from Wednesday's project status presentation, I noted them at the bottom of the ccc_lenet_implementation notebook. They might be part of my 3rd year project, I really need to get a nice segmentation to classification pipeline done by next week.
 - It really is about time that I retrain a segmentation model on my new cell plates but that also requires remaking the CSVs.
 
 ## TODOs
