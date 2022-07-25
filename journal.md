@@ -199,6 +199,19 @@
 - I have many ideas on how to develop this pipeline further to explore how well the other channels perform for classification and also some changes to make the classification predictions become a mask that will go on top the segmentation mask. These ideas come from Wednesday's project status presentation, I noted them at the bottom of the ccc_lenet_implementation notebook. They might be part of my 3rd year project, I really need to get a nice segmentation to classification pipeline done by next week.
 - It really is about time that I retrain a segmentation model on my new cell plates but that also requires remaking the CSVs.
 
+
+## Week 8
+
+### Monday 25/07/22
+- Had the catchup meeting with Ivor and Helfrid where they gave tips on how to improve the model and ideas on to where the project should end and will go in autumn. Also gave some points about catching up in end of August/beginning of September for the poster.
+- Tried implementing ResNet as its pretrained, loss of 0.5 while training and epochs took too long so I need to retrain again on a different computer to not waste time waiting.
+- Tried implementing a CNN with all 4 channels to see if we can get a 100% accuracy, does not work yet. Then I will implement with 3 channels and continue making smaller groups of channels to see what is the best accuracy we can get and which channels/groups of channels are best for the different cell cycle phases.
+- I would also like to implement a model that from PCNA (or another channel) tries to predict the values of the other channels.
+- I also need to look at the new Omero plate ID 833 cell data that Jesus added.
+- I also need to look into making the prediction classification mask, as that is what I want as final output, and Helfrid said it could just be labelled colors. And eventually to make it a GUI.
+- Main focus right now is to improve the accuracy of the model. Poster might be on loss of information as we decrease the number of channels (or opposite with gain of information as we increase the number of channels/cell cycle labellers).
+
+
 ## TODOs
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
