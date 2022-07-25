@@ -23,7 +23,7 @@ from matplotlib import pyplot as plt
 class CCCDataset(Dataset):
     """Face Landmarks dataset."""
 
-    def __init__(self, csv_file, transform=None):
+    def __init__(self, csv_file, channel_names, transform=None):
         """
         Args:
             csv_file (string): Path to the csv file with annotations.
@@ -44,6 +44,8 @@ class CCCDataset(Dataset):
         # Skip the strange images
         # indices_to_skip_img_wrong_shape = [i for i in range(len(self.cell_dataframe)) if str2array(df['pcna_crops'][i]).dtype is np.dtype('object')] #skipping rows with shapes such as (7,)
         # self.cell_dataframe = self.cell_dataframe.drop(indices_to_skip_img_wrong_shape).reset_index(drop=True)
+        self.channel_names = channel_names
+        self.column_name = channel_names[0]
 
         df = pd.read_csv(csv_file)
         df = add_cell_label_as_num_column(df)
@@ -51,7 +53,7 @@ class CCCDataset(Dataset):
         df = df.drop(indices_to_skip_label_3).reset_index(drop=True)
 
         indices_to_skip_img_wrong_shape = [i for i in range(len(df)) if
-                                           str2array(df['pcna_crops'][i]).dtype is np.dtype(
+                                           str2array(df[self.column_name][i]).dtype is np.dtype(
                                                'object')]  # skipping rows with shapes such as (7,)
         df = df.drop(indices_to_skip_img_wrong_shape).reset_index(drop=True)
         self.cell_dataframe = df
@@ -64,15 +66,23 @@ class CCCDataset(Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
-        image = str2array(self.cell_dataframe['pcna_crops'][idx])
+        images = []
+        for i in range(len(self.channel_names)):
+            images.append(str2array(self.cell_dataframe[self.channel_names[i]][idx]))
+
         label = self.cell_dataframe['label'][idx]
 
+        images_transformed = []
         if self.transform:
             convert_tensor = transforms.ToTensor()
-            image = convert_tensor(image)
-            image = self.transform(image)
+            for image in images_transformed:
+                image = convert_tensor(image)
+                image = self.transform(image)
+                images_transformed.append(image)
 
-        return image, torch.tensor(label).long()
+        images_transformed = torch.Tensor(np.array(images_transformed))
+
+        return images_transformed, torch.tensor(label).long()
 
 
 def add_cell_label_as_num_column(df):
@@ -97,10 +107,10 @@ def str2array(s):
 
 
 class LeNet(nn.Module):
-    def __init__(self, output_dim):
+    def __init__(self, output_dim, channel_names):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(in_channels=1,
+        self.conv1 = nn.Conv2d(in_channels=len(channel_names),
                                out_channels=6,
                                kernel_size=5)
 
@@ -212,8 +222,9 @@ def epoch_time(start_time, end_time):
     return elapsed_mins, elapsed_secs
 
 
-def get_iterators(csv_path):
+def get_iterators(csv_path, channel_names):
     data = CCCDataset(csv_file=csv_path,
+                      channel_names=channel_names,
                       transform=transforms.Compose([CenterCrop([32, 32])]))
 
     batch_size = 64
@@ -237,14 +248,14 @@ def get_iterators(csv_path):
     return train_iterator, valid_iterator, test_iterator
 
 
-def train_ccc_model(epochs, path_to_save_model, iterators):
+def train_ccc_model(epochs, path_to_save_model, iterators, channel_names):
     train_iterator, valid_iterator, test_iterator = iterators
 
     # Defining the model
 
     OUTPUT_DIM = 3
 
-    model = LeNet(OUTPUT_DIM)
+    model = LeNet(OUTPUT_DIM, channel_names)
 
     print(f'The model has {count_parameters(model):,} trainable parameters')
 
@@ -326,5 +337,7 @@ def plot_confusion_matrix(labels, pred_labels):
     cm = ConfusionMatrixDisplay(cm, display_labels=['G1', 'S', 'G2/M'])
     cm.plot(values_format='d', cmap='Blues', ax=ax)
     plt.savefig('confusion matrix')
+
+# %%
 
 # %%
