@@ -211,8 +211,33 @@
 - I also need to look into making the prediction classification mask, as that is what I want as final output, and Helfrid said it could just be labelled colors. And eventually to make it a GUI.
 - Main focus right now is to improve the accuracy of the model. Poster might be on loss of information as we decrease the number of channels (or opposite with gain of information as we increase the number of channels/cell cycle labellers).
 
+### Tuesday 26/07/22
+- Attended the practice presentation of Jesús on his project he did in the last few months at Sussex (very cell biology intensive) and two data science masters students. One of those students is Ryan who is doing a project very similar to mine (also using CellPose2 but classifying differently, he has not done the classification yet).
+- In the afternoon I helped Ryan get the GPU setup for his project in the lab computers.
+- I implemented a LeNet5 CNN, untrained (from scratch) with a 70% accuracy and a model that would use the 4 channels but did not finish that.
+
+### Wednesday 27/07/22
+- Made linear regression models to, from the PCNA channel, predict the DAPI, EdU and CyclinA2 average values, with varying results, but DAPI and Cyclin A2 was at 75-80% while EdU was at -133%. Applying these training data classification rules on these predicted values predicted a 40-50% accuracy.
+- Tried other classifiers from the scikit library, XGBoost ended up best with a ~75% accuracy when given the 4 average values (DAPI, PCNA etc.).
+- Most probably going back to PyTorch.
+
+### Thursday 28/07/22
+- Made a linear regression model (I forgot to mention that I am using them for classification, I round the regression value when predicting) that takes the flattenned PCNA image and tries to predict the cell cycle phase.
+- Ended up trying binary classification models with different groups of channels or individual channels and got mixed results. Even if, for example, binary classifiers for the 3 phases with PCNA all have an accuracy around 75%, when put together, such as taking the biggest confidence prediction, they have an accuracy of ~65%.
+- Found a 2009 paper with less than 2000 cells tried to solve the same classification task from the PCNA but also classified early, mid and late S phase and got a 95% accuracy. They used intensity histograms and surface curvatures with 64 bins each and used that for the classification. (Segmentation and Classification of Cell Cycle Phases in Fluorescence Imaging)
+
+### Friday 29/07/22
+- I wanted to collect texture features from the PCNA channel, I did not get very far.
+- I tried getting the HOG features but kept running into bugs when putting my numpy arrays in because of "negative dimensions".
+- I ended up reading a lot of papers, a lot from 2021, that were trying to solve the same task and I put them in a text file in this project with a summary of their methods and links to the papers. Hopefully I can use that in September to continue classifying.
+- I made a table of the accuracies found from each binary cell cycle classifier made from each individual channels and am using that as my classification results for this project.
+- I sent the table of accuracies to Helfrid and Ivor along with a summary of the project, the next steps (poster) and the hopeful 3rd year project in a long series of messages on Slack. I also sent thank yous to Oliver, Myles and Jesús (and kind wishes to Mae and Mihaela) for all of their help.
+
+This was fun! Onto the next event/thing/step/project.
+
 
 ## TODOs
+- Predict the average PCNA value from the PCNA flattened image, I think I've already done that actually.
 - Classification parts of omero_setup notebook belong in their own notebook in the classification directory
 - Add in omero_setup a 'get_ground_truth' function that gets the gray_crops and the labels found with k-means. Maybe the gray_crops will be different because we'll be using a different marker to train the CNN on.
 - Clean up omero_setup
