@@ -22,6 +22,7 @@ Attendees: Dr Helfrid Hochegger, Rehan Zuberi
 - He asked how the crops were made and this reminds me to make a flowchart/diagram that shows with the diagonal calculations and all how they are made.
 
 ### Monday 18th of July, 10:00-10:20
+Attendees: Dr Helfrid Hochegger, Dr Ivor Simpson, Rehan Zuberi
 - Have a set of convolutions fo reach channel, the cyclin, and merge them for a classifier or use them idnividually
 - Not a classifier for each channel but an encoder. Use 2-3 convolutions and merge them
 - More preprocesssing than just normalising is not needed since the CNN will be used
