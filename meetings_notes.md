@@ -32,3 +32,36 @@ Attendees: Dr Helfrid Hochegger, Rehan Zuberi
 - Helfrid is gone from week 8 wednesday. I talked about giving in the poster in beginning of september so Helfrid wants to be kept in the loop of how the poster goes in august.
 - We can move this to the 3rd year project. Time and space tracking of cells as Helfrid suggests. Ivor will talk with Ian Mackie this afternoon. Helfrid will talk with Jesus to get some data with Jesus for tracking. Helfrid will get in touch when he has the data.
 - Will have the talk in August or September with the list of extenstion tasks and propose them to Helfrid and Ivor how technical and application of which should be done according to me t build into a publication and for a 3r dyear  project.
+
+### Monday 25th of July 10:00-10:25
+
+Attendees: Ivor Simpson, Helfrid Hochegger, Rehan Zuberi
+
+- Only use the segmentation pixels for the data
+- the model should get up to 99% if we use all of the other channels, then remove them one by one
+- If we run it on TNA and PCNA on two channels that should be good
+
+- not mask images but concatenate the mask, then the model can choose what to mask
+- we prefer not to do masking if we can avoid it in machine learning
+
+- there is a lot of non relevant information there according to Helfrid
+- I should experiment with both, either boolean masking or all of the pixels
+- PCNA signal does not have a lot of information, so we should be able to distinguish S phase to a certain degree
+- Jesus uploaded a different cell line on Omero and I should look int. Plate id 833. 220719_Rehan_x20_U2OS_PCNA.
+
+- Add more out channels in conv2
+- PyTorch should have a built in function for softening according to Ivor
+- Run with integrated intensity. Multilpy the mean intensity with the area. Find the threshold with the total sum of intensities of the pixels in the segmentation. Run as a sum over the pixels of the cell. Same value as the mean with area.
+- The classification mask could be a color. Show the classification in a color code.
+- Going through both datasets.
+- Do the experiment basically start with all 4 channels and iteratively remove them, how much do we lose in accuracy when we lose information. That gives a nice message for the poster where we show we can do classification with some images/channels.
+- If the accuracy is at 70%
+- Look at the convolution channels of the cellpose models, since they know how to recognise certain features of cells.
+- Eventually we'll make a model that uses the cellpose2 model and also outputs class
+- Send at the end of the week a catchup to Helfrid
+- End of august/beginning of september to Helfrid for poster
+- Discus meeting tomorrow for lab meeting with Jesus presenting a work. At 11. Ryan will catchup with me this week.
+- Add a license to the GitHUb project, MIT is fine. I can get sued if it doesn't work if it doesn't have a license.
+- Make a plan that this work is aim for a publication because the work I did is good. At least that my 3rd year project has methods that cotnribute towards a publication.
+- I would like to present the pipeline to Helfrid's lab in autumn.
+- We'll discuss most of this in end of August.
