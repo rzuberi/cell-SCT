@@ -233,6 +233,7 @@
 - I ended up reading a lot of papers, a lot from 2021, that were trying to solve the same task and I put them in a text file in this project with a summary of their methods and links to the papers. Hopefully I can use that in September to continue classifying. Really, PCNA has a pattern that changes as it progresses throughout the cell cycle.
 - I made a table of the accuracies found from each binary cell cycle classifier made from each individual channels and am using that as my classification results for this project.
 - I sent the table of accuracies to Helfrid and Ivor along with a summary of the project, the next steps (poster) and the hopeful 3rd year project in a long series of messages on Slack. I also sent thank yous to Oliver, Myles and Jesús (and kind wishes to Mae and Mihaela) for all of their help.
+- Added an MIT license to this repository.
 
 This was fun! Onto the next event/thing/step/project.
 
