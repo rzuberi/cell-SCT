@@ -1,0 +1,41 @@
+Useful papers for the classification task of this project.
+
+Title: Segmentation and Classification of Cell Cycle Phases in Fluorescence Imaging
+Year: 2009
+Summary: Used PCNA labelled cells and labelled their G1, early, mid and late S and G2 phase with a 92.3% accuracy. Features collected are intensity and surface curvature histograms with 64 bins each.
+Source: https://cell.missouri.edu/media/publications/Ersoy-MICCAI-2009.pdf
+
+Title: Discrimination of cell cycle phases in PCNA-immunolabeled cells
+Year: 2015
+Summary: Ranked the best features to collect to label the cell cycle phase of PCNA labelled cells. They found it to be the combination of basic histogram features (Min, Max, Mean, Variance, Skewness, Kurtosis) and haralick features in a decision tree for an accuracy of 80%.
+Source: https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-015-0618-9
+
+Title: pcnaDeep: A Fast and Robust Single-Cell Tracking Method Using DeepLearning Mediated Cell Cycle Profiling
+Year: 2021
+Summary: Software that automatically tracks single cells. Allegedly good cell cycle analysis with PCNA.
+Source: https://www.biorxiv.org/content/10.1101/2021.09.19.460933v1.full.pdf
+
+Title: An Imbalanced Image Classification Method for the Cell Cycle Phase
+Year: 2021
+Summary: Re-balanced a cell cycle dataset with a GAN and used a modified ResNet to classify them, reached an accuracy of 83.88%.
+Source: https://www.mdpi.com/2078-2489/12/6/249/htm
+
+Title: Bound2Learn: a machine learning approach for classification of DNA-bound proteins from single-molecule tracking experiments
+Year: 2021
+Summary: Collecting cell features and using a decision tree (I think, I haven't read it fully).
+Source: https://academic.oup.com/nar/article/49/14/e79/6179348
+
+Title: A tweet I found that talks about exactly this task
+Year: 2021
+Summary: Giving the idea of using machine learning to get intensity and texture of PCNA to classify cell cyles and has a figure.
+Source: https://twitter.com/muellermicha_/status/1409462104382447617
+
+Title: Cell Cycle Stage Classification Using Phase Imaging with Computational Specificity
+Year: 2022
+Summary: Used a modified U-net that takes a cell image and segments out the cells and classifies them (G1, S, G2/M) in one mask with a good accuracy.
+Source: https://pubs.acs.org/doi/10.1021/acsphotonics.1c01779
+
+Title: Quantitative Cell Cycle Analysis Based on an Endogenous All-in-One Reporter for Cell Tracking and Classification
+Year: 2017
+Summary: With PCNA this paper shows some interesting data that permits to separate it into its phases, a very nice figure shows that too in there.
+Source: https://www.sciencedirect.com/science/article/pii/S2211124717306472
