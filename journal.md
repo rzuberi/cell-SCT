@@ -228,8 +228,9 @@
 
 ### Friday 29/07/22
 - I wanted to collect texture features from the PCNA channel, I did not get very far.
+- I tried creating new training data (for which I first retrained a CellPose2 segmentation model for) from the plate 833 that Jesus added that Helfrid told me it should be easier to classify from but I kept running into memory storage exceeded errors when getting to the ~850th image out of 1500.
 - I tried getting the HOG features but kept running into bugs when putting my numpy arrays in because of "negative dimensions".
-- I ended up reading a lot of papers, a lot from 2021, that were trying to solve the same task and I put them in a text file in this project with a summary of their methods and links to the papers. Hopefully I can use that in September to continue classifying.
+- I ended up reading a lot of papers, a lot from 2021, that were trying to solve the same task and I put them in a text file in this project with a summary of their methods and links to the papers. Hopefully I can use that in September to continue classifying. Really, PCNA has a pattern that changes as it progresses throughout the cell cycle.
 - I made a table of the accuracies found from each binary cell cycle classifier made from each individual channels and am using that as my classification results for this project.
 - I sent the table of accuracies to Helfrid and Ivor along with a summary of the project, the next steps (poster) and the hopeful 3rd year project in a long series of messages on Slack. I also sent thank yous to Oliver, Myles and Jesús (and kind wishes to Mae and Mihaela) for all of their help.
 
